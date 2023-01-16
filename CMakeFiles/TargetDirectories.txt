@@ -1,4 +1,0 @@
-/home/LucasTuros/Documentos/Programacao/Projetos_C++/build-TCC_ControleDeMaquina-Desktop-Debug/CMakeFiles/rebuild_cache.dir
-/home/LucasTuros/Documentos/Programacao/Projetos_C++/build-TCC_ControleDeMaquina-Desktop-Debug/CMakeFiles/edit_cache.dir
-/home/LucasTuros/Documentos/Programacao/Projetos_C++/build-TCC_ControleDeMaquina-Desktop-Debug/CMakeFiles/TCC_ControleDeMaquina.dir
-/home/LucasTuros/Documentos/Programacao/Projetos_C++/build-TCC_ControleDeMaquina-Desktop-Debug/CMakeFiles/TCC_ControleDeMaquina_autogen.dir

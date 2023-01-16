@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-89e7c5472b93fada738dc225a71d88d4 /home/LucasTuros/Documentos/Programacao/Projetos_C++/TCC_ControleDeMaquina/TCC_ControleDeMaquina_pt_BR.ts
-2db1e00b47ab7b1e3a32002702a399bf CMakeFiles/TCC_ControleDeMaquina_autogen
