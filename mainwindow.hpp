@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include "homedevice.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,5 +23,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    homedevice *home;
+    MainWindow *buscar;
 };
 #endif // MAINWINDOW_HPP

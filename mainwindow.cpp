@@ -16,9 +16,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_connectPort_clicked()
 {
+    home = new homedevice(this);
+    MainWindow main;
     ui->statusConnection->setText("Conectado");
     ui->connectPort->setDisabled(true);
     ui->disconnectPort->setEnabled(true);
+    home->show();
 }
 
 

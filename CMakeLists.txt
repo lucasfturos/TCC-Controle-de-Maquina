@@ -31,9 +31,14 @@ set(TS_FILES TCC_ControleDeMaquina_pt_BR.ts)
 
 set(PROJECT_SOURCES
         main.cpp
+        # main
         mainwindow.cpp
         mainwindow.hpp
         mainwindow.ui
+        # home
+        homedevice.cpp
+        homedevice.hpp
+        homedevice.ui
         ${TS_FILES}
 )
 
