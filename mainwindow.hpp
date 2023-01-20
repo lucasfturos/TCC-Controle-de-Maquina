@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "homedevice.hpp"
+#include "serialport.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,12 +19,14 @@ public:
 
 private slots:
     void on_connectPort_clicked();
-
     void on_disconnectPort_clicked();
+    void on_searchDevice_clicked();
+
 
 private:
     Ui::MainWindow *ui;
     homedevice *home;
     MainWindow *buscar;
+    SerialPort *serial;
 };
 #endif // MAINWINDOW_HPP
