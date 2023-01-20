@@ -1,6 +1,6 @@
-#include "homedevice.hpp"
+#include "src/includes/homedevice.hpp"
 #include "ui_homedevice.h"
-#include "mainwindow.hpp"
+#include "src/includes/mainwindow.hpp"
 
 homedevice::homedevice(QWidget *parent) :
     QDialog(parent),

@@ -16,6 +16,7 @@ find_package(
     Qt5 Core SerialPort
     COMPONENTS Widgets LinguistTools
     REQUIRED)
+
 find_package(Qt${QT_VERSION_MAJOR}
     COMPONENTS
     Widgets
@@ -23,43 +24,34 @@ find_package(Qt${QT_VERSION_MAJOR}
     LinguistTools
     REQUIRED)
 
-set(TS_FILES TCC_ControleDeMaquina_pt_BR.ts)
-
-set(PROJECT_SOURCES
-        main.cpp
-        # main
-        mainwindow.cpp
-        mainwindow.hpp
-        mainwindow.ui
-        # home
-        homedevice.cpp
-        homedevice.hpp
-        homedevice.ui
-        # serialport
-        serialport.hpp
-        serialport.cpp
-        ${TS_FILES}
-)
-
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(TCC_ControleDeMaquina
-        ${PROJECT_SOURCES}
+set(TS_FILES
+    TCC_ControleDeMaquina_pt_BR.ts
     )
 
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-else()
-    if(ANDROID)
-        add_library(TCC_ControleDeMaquina SHARED
-            ${PROJECT_SOURCES}
-        )
-    else()
-        add_executable(TCC_ControleDeMaquina
-            ${PROJECT_SOURCES}
-        )
-    endif()
+set(PROJECT_SOURCES
+    src/main.cpp
+    src/mainwindow.cpp
+    src/homedevice.cpp
+    src/serialport.cpp
+    ${TS_FILES}
+    )
 
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-endif()
+set(PROJECTS_UIS
+    libs/ui/mainwindow.ui
+    libs/ui/homedevice.ui
+    )
+
+set(PROJECT_HEADERS
+    src/includes/mainwindow.hpp
+    src/includes/homedevice.hpp
+    src/includes/serialport.hpp
+    )
+
+set(CMAKE_AUTOUIC_SEARCH_PATHS ${PROJECT_SOURCE_DIR}/libs/ui)
+
+add_executable(TCC_ControleDeMaquina
+    ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${PROJECTS_UIS}
+    )
 
 target_link_libraries(TCC_ControleDeMaquina PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets

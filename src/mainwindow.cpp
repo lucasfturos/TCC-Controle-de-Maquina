@@ -1,19 +1,18 @@
-#include "mainwindow.hpp"
+#include "src/includes/mainwindow.hpp"
 #include "./ui_mainwindow.h"
-#include "serialport.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    serial->serialConecta();
+    //serial->serialConecta();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    serial->~SerialPort();
+    //serial->~SerialPort();
 }
 
 
