@@ -14,7 +14,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(
     QT
     NAMES
-    Qt6
     Qt5
     Core
     SerialPort

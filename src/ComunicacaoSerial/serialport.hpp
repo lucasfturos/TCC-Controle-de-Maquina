@@ -9,10 +9,8 @@ class ComunicacaoSerial
 public:
     ComunicacaoSerial();
     ~ComunicacaoSerial();
-    void searchDevice();
-private:
+    void searchSerialPort();
     QSerialPort *serial;
-    QSerialPortInfo *serialinfo;
 };
 
 #endif // SERIALPORT_HPP
