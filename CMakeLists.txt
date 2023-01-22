@@ -32,7 +32,7 @@ find_package(Qt${QT_VERSION_MAJOR}
     REQUIRED)
 
 set(TS_FILES
-    libs/ts/TCC_ControleDeMaquina_pt_BR.ts
+    lib/ts/TCC_ControleDeMaquina_pt_BR.ts
     )
 
 set(PROJECT_SOURCES
@@ -43,8 +43,8 @@ set(PROJECT_SOURCES
     )
 
 set(PROJECTS_UIS
-    libs/ui/mainwindow.ui
-    libs/ui/homedevice.ui
+    lib/ui/mainwindow.ui
+    lib/ui/homedevice.ui
     )
 
 set(PROJECT_HEADERS
@@ -54,7 +54,7 @@ set(PROJECT_HEADERS
     )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS
-    ${PROJECT_SOURCE_DIR}/libs/ui
+    ${PROJECT_SOURCE_DIR}/lib/ui
     )
 
 add_executable(TCC_ControleDeMaquina
