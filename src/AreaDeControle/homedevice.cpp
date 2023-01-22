@@ -1,6 +1,6 @@
-#include "src/includes/homedevice.hpp"
+#include "homedevice.hpp"
 #include "ui_homedevice.h"
-#include "src/includes/mainwindow.hpp"
+#include "src/TelaInicial/mainwindow.hpp"
 
 homedevice::homedevice(QWidget *parent) :
     QDialog(parent),

@@ -2,8 +2,8 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
-#include "homedevice.hpp"
-#include "serialport.hpp"
+#include "src/AreaDeControle/homedevice.hpp"
+#include "src/ComunicacaoSerial/serialport.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,11 +22,10 @@ private slots:
     void on_disconnectPort_clicked();
     void on_searchDevice_clicked();
 
-
 private:
     Ui::MainWindow *ui;
     homedevice *home;
     MainWindow *buscar;
-    SerialPort *serial;
+    ComunicacaoSerial *serial;
 };
 #endif // MAINWINDOW_HPP

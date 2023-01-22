@@ -1,4 +1,4 @@
-#include "src/includes/mainwindow.hpp"
+#include "TelaInicial/mainwindow.hpp"
 #include <QApplication>
 
 int main(int argc, char *argv[])

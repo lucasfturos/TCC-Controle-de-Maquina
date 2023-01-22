@@ -1,11 +1,11 @@
-#include "src/includes/serialport.hpp"
+#include "serialport.hpp"
 
-void SerialPort::serialConecta(){
-    serial->setPortName(portName);
+void ComunicacaoSerial::searchDevice(){
+    serial->setPortName("/dev/tty0");
     qDebug()<<serial->errorString();
 
     if (serial->open(QIODevice::ReadWrite)){
-        if (!serial->setBaudRate(QSerialPort::Baud9600)){
+        if (!serial->setBaudRate(QSerialPort::Baud2400)){
             qDebug()<<serial->errorString();
         }
         if (!serial->setDataBits(QSerialPort::Data8)){
@@ -28,11 +28,9 @@ void SerialPort::serialConecta(){
     } else{
         qDebug()<<"Serial port not opened. Error: "<<serial->errorString();
     }
-
-
 }
 
-SerialPort::~SerialPort()
+ComunicacaoSerial::~ComunicacaoSerial()
 {
     serial->close();
 }

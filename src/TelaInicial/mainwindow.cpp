@@ -1,4 +1,4 @@
-#include "src/includes/mainwindow.hpp"
+#include "mainwindow.hpp"
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -6,13 +6,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //serial->serialConecta();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    //serial->~SerialPort();
 }
 
 
@@ -37,5 +35,6 @@ void MainWindow::on_disconnectPort_clicked()
 
 void MainWindow::on_searchDevice_clicked()
 {
+    serial->searchDevice();
     // ui->showMessage->setEditText(serial->readAll());
 }

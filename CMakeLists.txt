@@ -12,28 +12,34 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(
-    QT NAMES Qt6
-    Qt5 Core SerialPort
-    COMPONENTS Widgets LinguistTools
+    QT
+    NAMES
+    Qt6
+    Qt5
+    Core
+    SerialPort
+    COMPONENTS
+    Widgets
+    LinguistTools
     REQUIRED)
 
 find_package(Qt${QT_VERSION_MAJOR}
     COMPONENTS
     Widgets
-    Core SerialPort
+    Core
+    SerialPort
     LinguistTools
     REQUIRED)
 
 set(TS_FILES
-    TCC_ControleDeMaquina_pt_BR.ts
+    libs/ts/TCC_ControleDeMaquina_pt_BR.ts
     )
 
 set(PROJECT_SOURCES
     src/main.cpp
-    src/mainwindow.cpp
-    src/homedevice.cpp
-    src/serialport.cpp
-    ${TS_FILES}
+    src/TelaInicial/mainwindow.cpp
+    src/AreaDeControle/homedevice.cpp
+    src/ComunicacaoSerial/serialport.cpp
     )
 
 set(PROJECTS_UIS
@@ -42,15 +48,17 @@ set(PROJECTS_UIS
     )
 
 set(PROJECT_HEADERS
-    src/includes/mainwindow.hpp
-    src/includes/homedevice.hpp
-    src/includes/serialport.hpp
+    src/TelaInicial/mainwindow.hpp
+    src/AreaDeControle/homedevice.hpp
+    src/ComunicacaoSerial/serialport.hpp
     )
 
-set(CMAKE_AUTOUIC_SEARCH_PATHS ${PROJECT_SOURCE_DIR}/libs/ui)
+set(CMAKE_AUTOUIC_SEARCH_PATHS
+    ${PROJECT_SOURCE_DIR}/libs/ui
+    )
 
 add_executable(TCC_ControleDeMaquina
-    ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${PROJECTS_UIS}
+    ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${PROJECTS_UIS} ${TS_FILES}
     )
 
 target_link_libraries(TCC_ControleDeMaquina PRIVATE

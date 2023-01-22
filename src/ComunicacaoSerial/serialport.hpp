@@ -4,16 +4,15 @@
 #include <QSerialPortInfo>
 #include <QDebug>
 
-class SerialPort
+class ComunicacaoSerial
 {
 public:
-    SerialPort();
-    ~SerialPort();
-    void serialConecta();
+    ComunicacaoSerial();
+    ~ComunicacaoSerial();
+    void searchDevice();
 private:
     QSerialPort *serial;
     QSerialPortInfo *serialinfo;
-    QString portName;
 };
 
 #endif // SERIALPORT_HPP
