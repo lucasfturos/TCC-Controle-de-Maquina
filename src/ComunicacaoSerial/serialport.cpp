@@ -1,19 +1,47 @@
 #include "serialport.hpp"
 
-
-void ComunicacaoSerial::searchSerialPort(){
-    int i =0;
-    QStringList ports;
-    const auto serialAvaiblePorts = QSerialPortInfo::availablePorts();
-    for (const QSerialPortInfo &serialInfo : serialAvaiblePorts){
-        ports.insert(i, serialInfo.portName());
-        i++;
+std::tuple<QStringList, QStringList> ComunicacaoSerial::getAvalilableSerialDevice()
+{
+    qDebug() << "Número de portas disponiveis: " << serialInfo->availablePorts().length();
+    infoBaudList << "9600" << "19200" << "38400" << "57600" << "115200";
+    infoPortList.clear();
+    foreach (const QSerialPortInfo &listInfo, serialInfo->availablePorts())
+    {
+        QString dbgString;
+        dbgString += "Nome: " + listInfo.portName();
+        qDebug() << dbgString;
+        infoPortList.push_back(listInfo.portName());
     }
-    qDebug()<<serial->errorString();
-
+    return std::make_tuple(infoPortList, infoBaudList);
 }
 
-ComunicacaoSerial::~ComunicacaoSerial()
+void ComunicacaoSerial::serialWrite(QString message)
 {
-    serial->close();
+    if (serialDeviceConnected == true)
+    {
+        serial->write(message.toUtf8());
+        qDebug() << "Messagem para o dispositivo: " << message;
+    }
+}
+
+void ComunicacaoSerial::serialRead()
+{
+    if (serialDeviceConnected == true)
+    {
+        serialBuffer += serial->readAll();
+    }
+}
+
+void ComunicacaoSerial::serialDataAvalible()
+{
+    if (serialDeviceConnected == true)
+    {
+        serialRead();
+        if (serialBuffer.indexOf("]") != -1)
+        {
+            qDebug() << "Messagem do dispositivo: " << serialBuffer;
+            serialWrite("echoFromGui");
+            serialBuffer = "";
+        }
+    }
 }

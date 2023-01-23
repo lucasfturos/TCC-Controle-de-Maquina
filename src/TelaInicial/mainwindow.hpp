@@ -3,10 +3,7 @@
 
 #include <QMainWindow>
 #include "src/AreaDeControle/homedevice.hpp"
-
-#include <QSerialPort>
-#include <QSerialPortInfo>
-#include <QDebug>
+#include "src/ComunicacaoSerial/serialport.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +18,17 @@ public:
     ~MainWindow();
 
 private slots:
-    void connectSerialPort();
+    void on_connectDevice_clicked();
+    void on_disconnectDevice_clicked();
 
 private:
     Ui::MainWindow *ui;
     homedevice *home;
     MainWindow *buscar;
+    ComunicacaoSerial comunicaSerial;
+
     QSerialPort *serial;
+    QStringList baudList, portList;
+    bool serialDeviceConnected;
 };
 #endif // MAINWINDOW_HPP
