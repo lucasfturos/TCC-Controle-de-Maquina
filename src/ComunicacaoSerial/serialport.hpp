@@ -9,15 +9,17 @@ class ComunicacaoSerial
 {
 public:
     std::tuple<QStringList, QStringList> getAvalilableSerialDevice();
+    QSerialPort *serial;
+    bool serialDeviceConnected;
+
     void serialDataAvalible();
-    void serialRead();
+    void serialRead();    
 
 private: 
-    QSerialPort *serial;
     QSerialPortInfo *serialInfo;
-    QStringList infoBaudList, infoPortList;
+    QStringList infoBaudList;
+    QStringList infoPortList;
     QString serialBuffer;
-    bool serialDeviceConnected;
 
     void serialWrite(QString message);
 };

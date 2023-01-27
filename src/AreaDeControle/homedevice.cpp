@@ -1,6 +1,5 @@
 #include "homedevice.hpp"
-#include "ui_homedevice.h"
-#include "src/TelaInicial/mainwindow.hpp"
+//#include "ui_homedevice.h"
 
 homedevice::homedevice(QObject *parent) :
     QObject(parent)

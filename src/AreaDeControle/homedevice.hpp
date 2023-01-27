@@ -1,8 +1,8 @@
 #ifndef HOMEDEVICE_HPP
 #define HOMEDEVICE_HPP
 
-#include <QObject>
-#include <QtQml>
+#include "src/TelaInicial/mainwindow.hpp"
+#include <QQmlApplicationEngine>
 
 class homedevice : public QObject
 {

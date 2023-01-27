@@ -20,7 +20,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Busca device</string>
+   <string>Busca de dispositivo</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #3c3c3c;
@@ -31,9 +31,9 @@ color: #fff;
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>0</y>
-      <width>511</width>
+      <width>501</width>
       <height>231</height>
      </rect>
     </property>

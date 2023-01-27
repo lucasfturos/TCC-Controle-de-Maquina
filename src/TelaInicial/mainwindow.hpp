@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QScreen>
-#include "src/AreaDeControle/homedevice.hpp"
+//#include "src/AreaDeControle/homedevice.hpp"
 #include "src/ComunicacaoSerial/serialport.hpp"
 
 QT_BEGIN_NAMESPACE
@@ -24,7 +24,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    homedevice *home;
+    //homedevice *home;
     MainWindow *buscar;
     ComunicacaoSerial comunicaSerial;
 
@@ -33,8 +33,6 @@ private:
     void buttonStatusOff();
     void configSerial();
 
-    QSerialPort *serial;
     QStringList baudList, portList;
-    bool serialDeviceConnected;
 };
 #endif // MAINWINDOW_HPP

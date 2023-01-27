@@ -3,8 +3,9 @@
 std::tuple<QStringList, QStringList> ComunicacaoSerial::getAvalilableSerialDevice()
 {
     qDebug() << "Número de portas disponiveis: " << serialInfo->availablePorts().length();
+
     infoBaudList << "9600" << "19200" << "38400" << "57600" << "115200";
-    infoPortList.clear();
+    infoPortList << "";
     foreach (const QSerialPortInfo &listInfo, serialInfo->availablePorts())
     {
         QString dbgString;
@@ -12,6 +13,7 @@ std::tuple<QStringList, QStringList> ComunicacaoSerial::getAvalilableSerialDevic
         qDebug() << dbgString;
         infoPortList.push_back(listInfo.portName());
     }
+
     return std::make_tuple(infoPortList, infoBaudList);
 }
 
@@ -40,7 +42,7 @@ void ComunicacaoSerial::serialDataAvalible()
         if (serialBuffer.indexOf("]") != -1)
         {
             qDebug() << "Messagem do dispositivo: " << serialBuffer;
-            serialWrite("echoFromGui");
+            serialWrite("echoPIC");
             serialBuffer = "";
         }
     }

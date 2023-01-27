@@ -41,24 +41,25 @@ set(TS_FILES
 set(PROJECT_SOURCES
     src/main.cpp
     src/TelaInicial/mainwindow.cpp
-    #src/AreaDeControle/homedevice.cpp
+    src/AreaDeControle/homedevice.cpp
     src/ComunicacaoSerial/serialport.cpp
     )
 
 set(PROJECTS_UIS
     lib/ui/mainwindow.ui
     lib/ui/homedevice.ui
-    qml/AreaDeControle/HomeDeviceForm.ui.qml
     )
 
 set(PROJECT_HEADERS
     src/TelaInicial/mainwindow.hpp
-    #src/AreaDeControle/homedevice.hpp
+    src/AreaDeControle/homedevice.hpp
     src/ComunicacaoSerial/serialport.hpp
     )
 
-set(PROJECT_QML
-    qml/AreaDeControle/HomeDevice.qml
+set(PROJECT_AREA_DE_CONTROLE_QML
+    src/AreaDeControle/qml/HomeDevice.qml
+    src/AreaDeControle/qml/HomeDeviceForm.ui.qml
+    src/AreaDeControle/qml/qml.qrc
     )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS
@@ -66,7 +67,11 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     )
 
 add_executable(TCC_ControleDeMaquina
-    ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${PROJECTS_UIS} ${PROJECT_QML} ${TS_FILES}
+    ${PROJECT_SOURCES}
+    ${PROJECT_HEADERS}
+    ${PROJECTS_UIS}
+    ${PROJECT_AREA_DE_CONTROLE_QML}
+    ${TS_FILES}
     )
 
 target_link_libraries(TCC_ControleDeMaquina PRIVATE
