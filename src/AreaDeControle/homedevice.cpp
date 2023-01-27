@@ -2,19 +2,13 @@
 #include "ui_homedevice.h"
 #include "src/TelaInicial/mainwindow.hpp"
 
-homedevice::homedevice(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::homedevice)
+homedevice::homedevice(QObject *parent) :
+    QObject(parent)
 {
-    ui->setupUi(this);
-}
 
-homedevice::~homedevice()
-{
-    delete ui;
 }
 
 void homedevice::on_pushButton_clicked()
 {
-    close();
+
 }

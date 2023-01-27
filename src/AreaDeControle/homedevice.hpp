@@ -1,25 +1,22 @@
 #ifndef HOMEDEVICE_HPP
 #define HOMEDEVICE_HPP
 
-#include <QDialog>
+#include <QObject>
+#include <QtQml>
 
-namespace Ui {
-class homedevice;
-}
-
-class homedevice : public QDialog
+class homedevice : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
-    explicit homedevice(QWidget *parent = nullptr);
-    ~homedevice();
+    explicit homedevice(QObject *parent = nullptr);
 
 private slots:
     void on_pushButton_clicked();
 
 private:
-    Ui::homedevice *ui;
+
 };
 
 #endif // HOMEDEVICE_HPP

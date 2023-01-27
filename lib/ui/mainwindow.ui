@@ -22,6 +22,11 @@
   <property name="windowTitle">
    <string>Busca device</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #3c3c3c;
+color: #fff;
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
@@ -58,7 +63,7 @@
       </layout>
      </item>
      <item row="0" column="0">
-      <layout class="QGridLayout" name="gridLayout_2" rowstretch="0" columnstretch="0,0,0,0">
+      <layout class="QGridLayout" name="gridLayout_2" rowstretch="0" columnstretch="0,0,0">
        <item row="0" column="1">
         <widget class="QLineEdit" name="statusConnection">
          <property name="enabled">
@@ -73,6 +78,9 @@
          <property name="mouseTracking">
           <bool>false</bool>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="frame">
           <bool>false</bool>
          </property>
@@ -84,12 +92,12 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Status</string>
+          <string>Status:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="statusColor">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -98,6 +106,10 @@
            <width>50</width>
            <height>60</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: transparent; 
+border: none;</string>
          </property>
          <property name="text">
           <string/>

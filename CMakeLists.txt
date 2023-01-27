@@ -16,6 +16,8 @@ find_package(
     NAMES
     Qt5
     Core
+    Quick
+    Qml
     SerialPort
     COMPONENTS
     Widgets
@@ -26,6 +28,8 @@ find_package(Qt${QT_VERSION_MAJOR}
     COMPONENTS
     Widgets
     Core
+    Quick
+    Qml
     SerialPort
     LinguistTools
     REQUIRED)
@@ -37,19 +41,24 @@ set(TS_FILES
 set(PROJECT_SOURCES
     src/main.cpp
     src/TelaInicial/mainwindow.cpp
-    src/AreaDeControle/homedevice.cpp
+    #src/AreaDeControle/homedevice.cpp
     src/ComunicacaoSerial/serialport.cpp
     )
 
 set(PROJECTS_UIS
     lib/ui/mainwindow.ui
     lib/ui/homedevice.ui
+    qml/AreaDeControle/HomeDeviceForm.ui.qml
     )
 
 set(PROJECT_HEADERS
     src/TelaInicial/mainwindow.hpp
-    src/AreaDeControle/homedevice.hpp
+    #src/AreaDeControle/homedevice.hpp
     src/ComunicacaoSerial/serialport.hpp
+    )
+
+set(PROJECT_QML
+    qml/AreaDeControle/HomeDevice.qml
     )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS
@@ -57,11 +66,13 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     )
 
 add_executable(TCC_ControleDeMaquina
-    ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${PROJECTS_UIS} ${TS_FILES}
+    ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${PROJECTS_UIS} ${PROJECT_QML} ${TS_FILES}
     )
 
 target_link_libraries(TCC_ControleDeMaquina PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::SerialPort
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Qml
     )

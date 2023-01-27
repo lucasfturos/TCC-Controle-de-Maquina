@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <QScreen>
 #include "src/AreaDeControle/homedevice.hpp"
 #include "src/ComunicacaoSerial/serialport.hpp"
 
@@ -26,6 +27,11 @@ private:
     homedevice *home;
     MainWindow *buscar;
     ComunicacaoSerial comunicaSerial;
+
+    void windowConfigs();
+    void buttonStatusOn();
+    void buttonStatusOff();
+    void configSerial();
 
     QSerialPort *serial;
     QStringList baudList, portList;
