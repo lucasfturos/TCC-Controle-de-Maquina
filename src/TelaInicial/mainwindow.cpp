@@ -84,6 +84,7 @@ void MainWindow::on_connectDevice_clicked()
         comunicaSerial.serialDeviceConnected = true;
     } else
     {
+        ui->statusConnection->setText("Erro, nenhum dispositivo conectado!!");
         qDebug() << "Ocorreu um erro ao se conectar a porta "<< comunicaSerial.serial->portName();
         qDebug() << "Error: "<<comunicaSerial.serial->errorString();
         comunicaSerial.serialDeviceConnected = false;

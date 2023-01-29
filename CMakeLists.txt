@@ -41,7 +41,7 @@ set(TS_FILES
 set(PROJECT_SOURCES
     src/main.cpp
     src/TelaInicial/mainwindow.cpp
-#    src/AreaDeControle/homedevice.cpp
+    src/AreaDeControle/homedevice.cpp
     src/ComunicacaoSerial/serialport.cpp
     )
 
@@ -52,22 +52,13 @@ set(PROJECTS_UIS
 
 set(PROJECT_HEADERS
     src/TelaInicial/mainwindow.hpp
+    src/AreaDeControle/homedevice.hpp
     src/ComunicacaoSerial/serialport.hpp
-#    src/AreaDeControle/homedevice.hpp
     )
-qt_add_qml_module(PROJECT_QML
-    URI TCC_ControleDeMaquina
-    VERSION 1.0
-    QML_FILES
-        src/AreaDeControle/qml/qml.qrc
-    SOURCES
-        src/AreaDeControle/homedevice.hpp
-        src/AreaDeControle/homedevice.cpp
 
+set(PROJECT_QML
+    src/AreaDeControle/qml/qml.qrc
     )
-#set(PROJECT_QML
-#    src/AreaDeControle/qml/qml.qrc
-#    )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${PROJECT_SOURCE_DIR}/lib/ui
@@ -77,7 +68,7 @@ add_executable(TCC_ControleDeMaquina
     ${PROJECT_SOURCES}
     ${PROJECT_HEADERS}
     ${PROJECTS_UIS}
-#    ${PROJECT_QML}
+    ${PROJECT_QML}
     ${TS_FILES}
     )
 

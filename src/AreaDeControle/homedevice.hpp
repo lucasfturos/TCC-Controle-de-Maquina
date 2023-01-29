@@ -7,7 +7,7 @@
 class homedevice : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
+//    QML_ELEMENT
 
 public:
     explicit homedevice(QObject *parent = nullptr);
