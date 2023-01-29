@@ -32,6 +32,12 @@ void MainWindow::configSerial()
     comunicaSerial.serialDeviceConnected = false;
 }
 
+void MainWindow::configAreaDeControle()
+{
+    area = new AreaDeControle(this);
+    area->show();
+}
+
 void MainWindow::buttonStatusOn()
 {
     ui->statusConnection->setText("Conectado");
@@ -52,6 +58,7 @@ void MainWindow::buttonStatusOff()
 
 void MainWindow::on_connectDevice_clicked()
 {
+    configAreaDeControle();
     comunicaSerial.serial->setPortName(portList[ui->showPorts->currentIndex()].toUtf8());
     qDebug() << "Se conectando com a porta: "<<comunicaSerial.serial->portName();
 

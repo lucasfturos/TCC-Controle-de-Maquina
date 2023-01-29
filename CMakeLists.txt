@@ -3,11 +3,8 @@ cmake_minimum_required(VERSION 3.5)
 project(TCC_ControleDeMaquina LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -16,8 +13,6 @@ find_package(
     NAMES
     Qt5
     Core
-    Quick
-    Qml
     SerialPort
     COMPONENTS
     Widgets
@@ -28,8 +23,6 @@ find_package(Qt${QT_VERSION_MAJOR}
     COMPONENTS
     Widgets
     Core
-    Quick
-    Qml
     SerialPort
     LinguistTools
     REQUIRED)
@@ -41,23 +34,19 @@ set(TS_FILES
 set(PROJECT_SOURCES
     src/main.cpp
     src/TelaInicial/mainwindow.cpp
-    src/AreaDeControle/homedevice.cpp
+    src/AreaDeControle/areadecontrole.cpp
     src/ComunicacaoSerial/serialport.cpp
     )
 
 set(PROJECTS_UIS
     lib/ui/mainwindow.ui
-    lib/ui/homedevice.ui
+    lib/ui/areadecontrole.ui
     )
 
 set(PROJECT_HEADERS
     src/TelaInicial/mainwindow.hpp
-    src/AreaDeControle/homedevice.hpp
+    src/AreaDeControle/areadecontrole.hpp
     src/ComunicacaoSerial/serialport.hpp
-    )
-
-set(PROJECT_QML
-    src/AreaDeControle/qml/qml.qrc
     )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS
@@ -68,7 +57,6 @@ add_executable(TCC_ControleDeMaquina
     ${PROJECT_SOURCES}
     ${PROJECT_HEADERS}
     ${PROJECTS_UIS}
-    ${PROJECT_QML}
     ${TS_FILES}
     )
 
@@ -76,6 +64,4 @@ target_link_libraries(TCC_ControleDeMaquina PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::SerialPort
-    Qt${QT_VERSION_MAJOR}::Quick
-    Qt${QT_VERSION_MAJOR}::Qml
     )
