@@ -2,7 +2,7 @@
 #define HOMEDEVICE_HPP
 
 #include "src/TelaInicial/mainwindow.hpp"
-#include <QQmlApplicationEngine>
+#include <QObject>
 
 class homedevice : public QObject
 {
