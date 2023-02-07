@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     windowConfigs();
     configSerial();
+    configAreaDeControle();
+
 }
 
 MainWindow::~MainWindow()
@@ -24,17 +26,21 @@ void MainWindow::windowConfigs()
 
 void MainWindow::configSerial()
 {
-    comunicaSerial.serial = new QSerialPort();
+    comunicaSerial.serial = new QSerialPort(this);
     std::tie(portList, baudList) = comunicaSerial.getAvalilableSerialDevice();
     ui->showPorts->insertItems(0, portList);
     ui->showBauds->insertItems(0, baudList);
-    connect(comunicaSerial.serial, SIGNAL(comunicaSerial.serialRead()), SIGNAL(comunicaSeria.serialDataAvalible()));
+    connect(comunicaSerial.serial, SIGNAL(comunicaSerial.serial->readyRead()), this,
+            SLOT(comunicaSeria.serialRead()));
+    connect(ui->connectDevice, SIGNAL(clicked()), this,
+            SLOT(comunicaSerial.serialDataAvalible()));
     comunicaSerial.serialDeviceConnected = false;
 }
 
 void MainWindow::configAreaDeControle()
 {
     area = new AreaDeControle(this);
+    area->setFixedSize(640, 480);
     area->show();
 }
 
@@ -58,7 +64,6 @@ void MainWindow::buttonStatusOff()
 
 void MainWindow::on_connectDevice_clicked()
 {
-    configAreaDeControle();
     comunicaSerial.serial->setPortName(portList[ui->showPorts->currentIndex()].toUtf8());
     qDebug() << "Se conectando com a porta: "<<comunicaSerial.serial->portName();
 

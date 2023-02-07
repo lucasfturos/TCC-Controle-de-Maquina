@@ -11,7 +11,7 @@ public:
     std::tuple<QStringList, QStringList> getAvalilableSerialDevice();
     QSerialPort *serial;
     bool serialDeviceConnected;
-
+public slots:
     void serialDataAvalible();
     void serialRead();    
 
