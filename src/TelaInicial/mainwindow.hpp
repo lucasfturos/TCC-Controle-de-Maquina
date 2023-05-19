@@ -1,28 +1,29 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
-#include <QMainWindow>
-#include <QScreen>
 #include "src/AreaDeControle/areadecontrole.hpp"
 #include "src/ComunicacaoSerial/serialport.hpp"
+#include <QMainWindow>
+#include <QScreen>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
-public:
+  public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
+  private slots:
     void on_connectDevice_clicked();
     void on_disconnectDevice_clicked();
 
-private:
+  private:
     Ui::MainWindow *ui;
     AreaDeControle *area;
     MainWindow *buscar;

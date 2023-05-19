@@ -1,21 +1,20 @@
 #ifndef SERIALPORT_HPP
 #define SERIALPORT_HPP
+#include <QDebug>
 #include <QSerialPort>
 #include <QSerialPortInfo>
-#include <QDebug>
 #include <tuple>
 
-class ComunicacaoSerial
-{
-public:
+class ComunicacaoSerial {
+  public:
     std::tuple<QStringList, QStringList> getAvalilableSerialDevice();
     QSerialPort *serial;
     bool serialDeviceConnected;
-public slots:
+  public slots:
     void serialDataAvalible();
-    void serialRead();    
+    void serialRead();
 
-private: 
+  private:
     QSerialPortInfo *serialInfo;
     QStringList infoBaudList;
     QStringList infoPortList;

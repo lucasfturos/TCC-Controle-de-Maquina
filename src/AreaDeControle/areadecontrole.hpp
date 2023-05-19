@@ -8,18 +8,17 @@ namespace Ui {
 class AreaDeControle;
 }
 
-class AreaDeControle : public QMainWindow
-{
+class AreaDeControle : public QMainWindow {
     Q_OBJECT
 
-public:
+  public:
     explicit AreaDeControle(QWidget *parent = nullptr);
     ~AreaDeControle();
 
-private slots:
+  private slots:
     void textEditMotorPasso();
 
-private:
+  private:
     Ui::AreaDeControle *ui;
 };
 
