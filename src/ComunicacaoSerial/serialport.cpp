@@ -22,10 +22,10 @@ ComunicacaoSerial::getAvalilableSerialDevice() {
     return std::make_tuple(infoPortList, infoBaudList);
 }
 
-void ComunicacaoSerial::serialWrite(QString message) {
+void ComunicacaoSerial::serialWrite(QByteArray &data) {
     if (serialDeviceConnected == true) {
-        serial->write(message.toUtf8());
-        qDebug() << "Messagem para o dispositivo: " << message;
+        serial->write(data);
+        qDebug() << "Dados para o dispositivo: " << data;
     }
 }
 
@@ -37,12 +37,25 @@ void ComunicacaoSerial::serialRead() {
 }
 
 void ComunicacaoSerial::serialDataAvalible() {
+    QByteArray data_message = "echoPIC";
+
     if (serialDeviceConnected == true) {
         serialRead();
         if (serialBuffer.indexOf("]") != -1) {
             qDebug() << "Messagem do dispositivo: " << serialBuffer;
-            serialWrite("echoPIC");
+            serialWrite(data_message);
             serialBuffer = "";
         }
+    }
+}
+
+void ComunicacaoSerial::logData(QByteArray &data){
+    QFile logFile("seriallog.txt");
+    if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        QTextStream textStream(&logFile);
+        textStream << "Dados enviados: " << data <<'\n';
+        logFile.close();
+    } else {
+        qDebug() << "Erro ao abrir o arquivo de log: " << logFile.errorString();
     }
 }
