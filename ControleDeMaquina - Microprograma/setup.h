@@ -20,4 +20,7 @@
 #define _XTAL_FREQ 8000000  // Frequência do oscilador (8MHz)
 #define BAUD_RATE 9600      // Taxa de transmissão serial (bps)
 
+// Header
+#include "lcd.h"
+
 #endif	/* SETUP_H */
