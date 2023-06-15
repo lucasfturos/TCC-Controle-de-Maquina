@@ -8,15 +8,26 @@
 #ifndef LCD_H
 #define	LCD_H
 
-#define LcdDataBus      PORTB
-#define LcdControlBus   PORTD
+#include "setup.h"
 
-#define LcdDataBusDirnReg   TRISB
-#define LcdCtrlBusDirnReg   TRISD
+#define LCD_RS         RE0
+#define LCD_RW         RE1
+#define LCD_EN         RE2
 
-#define LCD_RS     0
-#define LCD_RW     1
-#define LCD_EN     2
+#define LCD_D4         RD4
+#define LCD_D5         RD5
+#define LCD_D6         RD6
+#define LCD_D7         RD7
 
+#define DATA_PORT_DIR  TRISE
+#define CTRL_PORT_DIR  TRISD
+
+void LCD_Init();
+void LCD_Clear();
+void LCD_CMD(char a);
+void LCD_Port(char a);
+void LCD_Write_Char(char a);
+void LCD_Write_String(char *a);
+void LCD_Set_Cursor(char a, char b);
 
 #endif	/* LCD_H */

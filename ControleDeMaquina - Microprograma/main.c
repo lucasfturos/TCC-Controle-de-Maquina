@@ -6,8 +6,9 @@
  */
 
 #include "UART.h"
+#include "lcd.h"
 
-void main(void) {
+void uart_show() {
     TRISBbits.TRISB1 = 0; // Define a porta B1 como saída (LED)
     PORTBbits.RB1 = 0; // Inicialmente, desliga o LED
 
@@ -22,5 +23,22 @@ void main(void) {
             PORTBbits.RB1 = 0; // Desliga o LED
             UART_Write('led0'); // Envia uma confirmação de recebimento
         }
+    }
+}
+
+void main(void) {
+    unsigned int a;
+    LCD_Init();
+    while (1) {
+        LCD_Clear();
+        LCD_Set_Cursor(1, 1);
+        LCD_Write_String("LCD Library for");
+        __delay_ms(2000);
+        LCD_Clear();
+        LCD_Set_Cursor(1, 1);
+        LCD_Write_String("Developed By");
+        LCD_Set_Cursor(2, 1);
+        LCD_Write_String("Lucas");
+        __delay_ms(2000);
     }
 }

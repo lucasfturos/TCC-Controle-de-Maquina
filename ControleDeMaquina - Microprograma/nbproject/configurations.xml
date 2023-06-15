@@ -17,6 +17,7 @@
                    projectFiles="true">
       <itemPath>main.c</itemPath>
       <itemPath>UART.c</itemPath>
+      <itemPath>lcd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
