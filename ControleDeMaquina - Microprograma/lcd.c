@@ -7,38 +7,18 @@
 #include "lcd.h"
 
 void LCD_Port(char a) {
-    if ((a >> 0) & 0x01) {
-        LCD_D4 = 1;
-    } else {
-        LCD_D4 = 0;
-    }
-
-    if ((a >> 1) & 0x01) {
-        LCD_D5 = 1;
-    } else {
-        LCD_D5 = 0;
-    }
-
-    if ((a >> 2) & 0x01) {
-        LCD_D6 = 1;
-    } else {
-        LCD_D6 = 0;
-    }
-
-    if ((a >> 3) & 0x01) {
-        LCD_D7 = 1;
-    } else {
-        LCD_D7 = 0;
-    }
+    LCD_D4 = (a >> 4) & 0x01;
+    LCD_D5 = (a >> 5) & 0x01;
+    LCD_D6 = (a >> 6) & 0x01;
+    LCD_D7 = (a >> 7) & 0x01;
 }
 
 void LCD_CMD(char a) {
     LCD_RS = 0;
-    LCD_RW = 0;
-    LCD_Port(a);
     LCD_EN = 1;
-    __delay_ms(4);
+    LCD_Port(a);
     LCD_EN = 0;
+    __delay_ms(1);
 }
 
 void LCD_Clear() {

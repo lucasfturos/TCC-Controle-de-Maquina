@@ -20,7 +20,7 @@
 #pragma config LVP = OFF   // Desabilitar Low-Voltage Programming
 #pragma config CP = OFF // Flash Program Memory Code Protection bit (Code protection off)
 
-#define _XTAL_FREQ 8000000  // Frequência do oscilador (8MHz)
+#define _XTAL_FREQ 20000000  // Frequência do oscilador (20MHz)
 #define BAUD_RATE 9600      // Taxa de transmissão serial (bps)
 
 #endif	/* SETUP_H */

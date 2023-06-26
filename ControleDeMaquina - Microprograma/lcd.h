@@ -19,8 +19,8 @@
 #define LCD_D6         RD6
 #define LCD_D7         RD7
 
-#define DATA_PORT_DIR  TRISE
-#define CTRL_PORT_DIR  TRISD
+#define DATA_PORT_DIR  TRISD // Define porta de dados
+#define CTRL_PORT_DIR  TRISE // Define porta de controle
 
 void LCD_Init();
 void LCD_Clear();
