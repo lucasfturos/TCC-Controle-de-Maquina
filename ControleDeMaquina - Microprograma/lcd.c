@@ -44,8 +44,8 @@ void LCD_Set_Cursor(char a, char b) {
 }
 
 void LCD_Init() {
-    CTRL_PORT_DIR = 0x00;
-    DATA_PORT_DIR = 0x00;
+    TRISE = 0x00;
+    TRISD = 0x00;
 
     LCD_Port(0x00);
     __delay_ms(20);
@@ -80,7 +80,7 @@ void LCD_Write_Char(char a) {
 }
 
 void LCD_Write_String(char* a) {
-    for (int i = 0; a[i] != '\0'; i++) {
-        LCD_Write_Char(a[i]);
+    while (*a) {
+        LCD_Write_Char(a++);
     }
 }

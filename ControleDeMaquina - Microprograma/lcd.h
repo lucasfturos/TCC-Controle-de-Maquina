@@ -14,10 +14,10 @@
 #define LCD_RW         RE1
 #define LCD_EN         RE2
 
-#define LCD_D4         RD4
-#define LCD_D5         RD5
-#define LCD_D6         RD6
-#define LCD_D7         RD7
+#define LCD_D4         PORTDbits.RD4
+#define LCD_D5         PORTDbits.RD5
+#define LCD_D6         PORTDbits.RD6
+#define LCD_D7         PORTDbits.RD7
 
 #define DATA_PORT_DIR  TRISD // Define porta de dados
 #define CTRL_PORT_DIR  TRISE // Define porta de controle

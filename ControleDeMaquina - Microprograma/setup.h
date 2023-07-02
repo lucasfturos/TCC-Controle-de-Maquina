@@ -14,13 +14,12 @@
 #pragma config FOSC = HS   // Oscilador externo de alta velocidade
 #pragma config WDTE = OFF  // Desabilitar Watchdog Timer
 #pragma config PWRTE = OFF // Desabilitar Power-Up Timer
-#pragma config BOREN = OFF // Desabilitar Brown-out Reset
+#pragma config BOREN = ON // Desabilitar Brown-out Reset
 #pragma config CPD = OFF // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
 #pragma config WRT = OFF // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON
 #pragma config LVP = OFF   // Desabilitar Low-Voltage Programming
 #pragma config CP = OFF // Flash Program Memory Code Protection bit (Code protection off)
 
 #define _XTAL_FREQ 20000000  // Frequência do oscilador (20MHz)
-#define BAUD_RATE 9600      // Taxa de transmissão serial (bps)
 
 #endif	/* SETUP_H */

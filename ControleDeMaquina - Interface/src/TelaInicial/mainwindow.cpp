@@ -28,7 +28,6 @@ void MainWindow::configSerial() {
 
     connect(comunicaSerial.serial, SIGNAL(comunicaSerial.serial->readyRead()), this,
             SLOT(comunicaSeria.serialRead()));
-
     connect(ui->connectDevice, SIGNAL(clicked()), this,SLOT(comunicaSerial.serialDataAvalible()));
 
     comunicaSerial.serialDeviceConnected = false;
@@ -36,7 +35,6 @@ void MainWindow::configSerial() {
 
 void MainWindow::configAreaDeControle() {
     area = new AreaDeControle(this);
-    area->setFixedSize(640, 480);
     area->show();
 }
 
@@ -57,9 +55,9 @@ void MainWindow::buttonStatusOff() {
 }
 
 void MainWindow::on_connectDevice_clicked() {
-//    comunicaSerial.serial->setPortName(
-//                portList[ui->showPorts->currentIndex()].toUtf8());
-    comunicaSerial.serial->setPortName("/tmp/ttyUSB0");
+    comunicaSerial.serial->setPortName(
+                portList[ui->showPorts->currentIndex()].toUtf8());
+    // comunicaSerial.serial->setPortName("/tmp/ttyUSB0");
     qDebug() << "Se conectando com a porta: "
              << comunicaSerial.serial->portName();
 

@@ -25,7 +25,7 @@ ComunicacaoSerial::getAvalilableSerialDevice() {
 void ComunicacaoSerial::serialWrite(QByteArray &data) {
     if (serialDeviceConnected == true) {
         serial->write(data);
-        qDebug() << "Dados para o dispositivo: " << data;
+        qDebug() << "Dados enviados para o dispositivo: " << data;
     }
 }
 
@@ -46,16 +46,5 @@ void ComunicacaoSerial::serialDataAvalible() {
             serialWrite(data_message);
             serialBuffer = "";
         }
-    }
-}
-
-void ComunicacaoSerial::logData(QByteArray &data){
-    QFile logFile("seriallog.txt");
-    if (logFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-        QTextStream textStream(&logFile);
-        textStream << "Dados enviados: " << data <<'\n';
-        logFile.close();
-    } else {
-        qDebug() << "Erro ao abrir o arquivo de log: " << logFile.errorString();
     }
 }

@@ -10,7 +10,7 @@
 
 #include "setup.h"
 
-void UART_Init();
+void UART_Init(const long int baundrate);
 
 void UART_Write(char data);
 

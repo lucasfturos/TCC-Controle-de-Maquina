@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
-#include "src/AreaDeControle/areadecontrole.hpp"
-#include "src/ComunicacaoSerial/serialport.hpp"
+#include <src/AreaDeControle/areadecontrole.hpp>
+#include <src/ComunicacaoSerial/serialport.hpp>
 #include <QMainWindow>
 #include <QScreen>
 
