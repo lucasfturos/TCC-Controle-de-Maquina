@@ -3,6 +3,8 @@
 
 AreaDeControle::AreaDeControle(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::AreaDeControle) {
+    serial = std::make_shared<ComunicacaoSerial>();
+
     ui->setupUi(this);
     this->setFixedSize(670, 420);
     move(screen()->geometry().center() - frameGeometry().center());
@@ -14,7 +16,9 @@ AreaDeControle::AreaDeControle(QWidget *parent)
     setupMotorEletrico();
 }
 
-AreaDeControle::~AreaDeControle() { delete ui; }
+AreaDeControle::~AreaDeControle(){
+    delete ui;
+}
 
 void AreaDeControle::setupMotorEletrico() {
     stateButtonMotorEletrico = false;
@@ -27,20 +31,27 @@ void AreaDeControle::setupLed() {
 }
 
 void AreaDeControle::setupDisplayLCD() {
-    mensagemPreProgramadas = {"Mensagens Pré-Programadas", "Motor 1: Ligado",
-                              "Motor 1: Desligado",        "Valvula 1: Ligado",
-                              "Valvula 2: Desligado",      "LED 1: Ligado",
-                              "LED 2: Desligado"};
-    ui->textEditDisplayLcd->setPlaceholderText("Informe a mensagem.");
+    mensagemPreProgramadas = {"Mensagens Pré-Programadas",
+                              "Problemas no Motor 1", "Problemas na Valvula",
+                              "Aviso: Saída imediata", "Aviso: Incendio", "Aviso: Gás Vazando"};
+
+    // ComboBox
     ui->mensagemDisplayLCD->addItems(mensagemPreProgramadas);
+
+    // TextEdit
+    ui->textEditDisplayLcd->setPlaceholderText("Informe a mensagem.");
 }
 
 void AreaDeControle::setupMotorPasso(){
     ui->buttonMotorPasso->setText("Ligar");
     stateButtonMotorPasso = false;
     infoEstadoValvula = {"Estado de Abertuda da Valvula", "Baixa", "Média", "Alta"};
+
+    // ComboBox
     ui->estadoValvula->addItems(infoEstadoValvula);
-    ui->testeMotorPasso->setPlaceholderText("Informe um ângulo para o teste");
+
+    // TextEdit
+    ui->testeMotorPasso->setPlaceholderText("Informe um ângulo");
 }
 
 void AreaDeControle::on_buttonLed_clicked() {
@@ -48,11 +59,11 @@ void AreaDeControle::on_buttonLed_clicked() {
     if (stateButtonLed) {
         ui->buttonLed->setText("Ligar");
         stateButtonLed = false;
-        // serial->serialWrite(led1);
+        serial->serialWrite(led1);
     } else {
         ui->buttonLed->setText("Desligar");
         stateButtonLed = true;
-        // serial->serialWrite(led0);
+        serial->serialWrite(led0);
     }
 }
 
@@ -61,17 +72,20 @@ void AreaDeControle::on_buttonMotorEletric_clicked() {
     if (stateButtonMotorEletrico) {
         ui->buttonMotorEletric->setText("Ligar");
         stateButtonMotorEletrico = false;
-        // serial->serialWrite(motor0);
+        serial->serialWrite(motor0);
     } else {
         ui->buttonMotorEletric->setText("Desligar");
         stateButtonMotorEletrico = true;
-        // serial->serialWrite(motor1);
+        serial->serialWrite(motor1);
     }
 }
 
 void AreaDeControle::on_enviarDisplayLCD_clicked()
 {
-    // Enviar mensagens
+    QString mensagem = ui->mensagemDisplayLCD->currentText();
+    QByteArray aux;
+    aux += mensagem.toUtf8();
+    serial->serialWrite(aux);
 }
 
 void AreaDeControle::on_buttonMotorPasso_clicked()
@@ -80,10 +94,10 @@ void AreaDeControle::on_buttonMotorPasso_clicked()
     if (stateButtonMotorPasso) {
         ui->buttonMotorPasso->setText("Ligar");
         stateButtonMotorPasso = false;
-        // serial->serialWrite(angulo);
+        serial->serialWrite(angulo);
     } else {
         ui->buttonMotorPasso->setText("Desligar");
         stateButtonMotorPasso = true;
-        // serial->serialWrite(desligar);
+        serial->serialWrite(desligar);
     }
 }

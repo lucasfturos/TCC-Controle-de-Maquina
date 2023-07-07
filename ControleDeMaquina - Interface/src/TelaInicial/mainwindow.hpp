@@ -25,9 +25,8 @@ class MainWindow : public QMainWindow {
 
   private:
     Ui::MainWindow *ui;
-    AreaDeControle *area;
-    MainWindow *buscar;
-    ComunicacaoSerial comunicaSerial;
+    std::shared_ptr<AreaDeControle> area;
+    std::shared_ptr<ComunicacaoSerial> comunicaSerial;
 
     void windowConfigs();
     void buttonStatusOn();

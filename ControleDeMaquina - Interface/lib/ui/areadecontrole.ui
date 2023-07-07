@@ -14,7 +14,8 @@
    <string>Área de Controle de Máquina</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #3c3c3c;</string>
+   <string notr="true">background-color: #3c3c3c;
+color: #fff;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -76,6 +77,9 @@
          <height>31</height>
         </size>
        </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
       </widget>
      </item>
      <item>
@@ -111,7 +115,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>

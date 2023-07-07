@@ -1,11 +1,12 @@
 #ifndef AREADECONTROLE_HPP
 #define AREADECONTROLE_HPP
 
-#include <QMainWindow>
-#include <QScreen>
 #include <QList>
-#include <QSlider>
+#include <memory>
+#include <QDebug>
+#include <QScreen>
 #include <QTextEdit>
+#include <QMainWindow>
 #include <src/ComunicacaoSerial/serialport.hpp>
 
 namespace Ui {
@@ -34,7 +35,7 @@ private:
     void setupMotorEletrico();
 
     Ui::AreaDeControle *ui;
-    ComunicacaoSerial *serial;
+    std::shared_ptr<ComunicacaoSerial> serial;
 
     QList<QString> mensagemPreProgramadas;
     QList<QString> infoEstadoValvula;
