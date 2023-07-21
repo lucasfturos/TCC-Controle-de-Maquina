@@ -5,13 +5,14 @@
  * Created on 9 de Junho de 2023, 20:32
  */
 
-#include "UART.h"
 #include "lcd.h"
+#include "UART.h"
+
 
 void uart_show() {
     TRISDbits.TRISD0 = 0; // Define a porta D0 como saída (LED)
     PORTDbits.RD0 = 0; // Inicialmente, desliga o LED
-    
+
     UART_Init(9600); // Inicializa a comunicação serial
 
     while (1) {
@@ -28,11 +29,11 @@ void uart_show() {
 
 void lcd_show() {
     LCD_Init();
+    LCD_Clear(); // Limpa o display
+    LCD_SetCursor(2,6);
+    LCD_WriteString("Hello, LCD!"); // Escreve uma string no LCD
     while (1) {
-        LCD_Clear();
-        LCD_Set_Cursor(1, 1);
-        LCD_Write_String("Ola");
-        __delay_ms(200);
+
     }
 }
 
