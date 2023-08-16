@@ -1,10 +1,10 @@
 #include "areadecontrole.hpp"
 #include "ui_areadecontrole.h"
 
-AreaDeControle::AreaDeControle(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::AreaDeControle) {
-    serial = std::make_shared<ComunicacaoSerial>();
-
+AreaDeControle::AreaDeControle(QWidget *parent,
+                               std::shared_ptr<ComunicacaoSerial> connectSerial)
+    : QMainWindow(parent), ui(std::make_shared<Ui::AreaDeControle>()),
+      serialConnection(connectSerial) {
     ui->setupUi(this);
     this->setFixedSize(670, 420);
     move(screen()->geometry().center() - frameGeometry().center());
@@ -14,10 +14,6 @@ AreaDeControle::AreaDeControle(QWidget *parent)
     setupDisplayLCD();
     setupMotorPasso();
     setupMotorEletrico();
-}
-
-AreaDeControle::~AreaDeControle(){
-    delete ui;
 }
 
 void AreaDeControle::setupMotorEletrico() {
@@ -31,9 +27,10 @@ void AreaDeControle::setupLed() {
 }
 
 void AreaDeControle::setupDisplayLCD() {
-    mensagemPreProgramadas = {"Mensagens Pré-Programadas",
-                              "Problemas no Motor 1", "Problemas na Valvula",
-                              "Aviso: Saída imediata", "Aviso: Incendio", "Aviso: Gás Vazando"};
+    mensagemPreProgramadas = {
+        "Mensagens Pré-Programadas", "Problemas no Motor 1",
+        "Problemas na Valvula",      "Aviso: Saída imediata",
+        "Aviso: Incendio",           "Aviso: Gás Vazando"};
 
     // ComboBox
     ui->mensagemDisplayLCD->addItems(mensagemPreProgramadas);
@@ -42,10 +39,11 @@ void AreaDeControle::setupDisplayLCD() {
     ui->textEditDisplayLcd->setPlaceholderText("Informe a mensagem.");
 }
 
-void AreaDeControle::setupMotorPasso(){
+void AreaDeControle::setupMotorPasso() {
     ui->buttonMotorPasso->setText("Ligar");
     stateButtonMotorPasso = false;
-    infoEstadoValvula = {"Estado de Abertuda da Valvula", "Baixa", "Média", "Alta"};
+    infoEstadoValvula = {"Estado de Abertuda da Valvula", "Baixa", "Média",
+                         "Alta"};
 
     // ComboBox
     ui->estadoValvula->addItems(infoEstadoValvula);
@@ -55,49 +53,49 @@ void AreaDeControle::setupMotorPasso(){
 }
 
 void AreaDeControle::on_buttonLed_clicked() {
-    QByteArray led1 = "1", led0 = "0";
+    QString led1 = "L";
+    QString led0 = "O";
+
     if (stateButtonLed) {
         ui->buttonLed->setText("Ligar");
         stateButtonLed = false;
-        serial->serialWrite(led1);
+        serialConnection->serialWrite(led0.toUtf8());
     } else {
         ui->buttonLed->setText("Desligar");
         stateButtonLed = true;
-        serial->serialWrite(led0);
+        serialConnection->serialWrite(led1.toUtf8());
     }
 }
 
 void AreaDeControle::on_buttonMotorEletric_clicked() {
-    QByteArray motor1 = "A", motor0 = "B";
+    char motor1 = 'A', motor0 = 'B';
     if (stateButtonMotorEletrico) {
         ui->buttonMotorEletric->setText("Ligar");
         stateButtonMotorEletrico = false;
-        serial->serialWrite(motor0);
+        serialConnection->serialWrite(&motor0);
     } else {
         ui->buttonMotorEletric->setText("Desligar");
         stateButtonMotorEletrico = true;
-        serial->serialWrite(motor1);
+        serialConnection->serialWrite(&motor1);
     }
 }
 
-void AreaDeControle::on_enviarDisplayLCD_clicked()
-{
+void AreaDeControle::on_enviarDisplayLCD_clicked() {
     QString mensagem = ui->mensagemDisplayLCD->currentText();
-    QByteArray aux;
-    aux += mensagem.toUtf8();
-    serial->serialWrite(aux);
+
+    // connectSerial->serialWrite(aux);
 }
 
-void AreaDeControle::on_buttonMotorPasso_clicked()
-{
-    QByteArray angulo = "90", estato = "baixo", desligar = "C";
+void AreaDeControle::on_buttonMotorPasso_clicked() {
+    QString angulo = "90";
+    char desligar = 'd';
     if (stateButtonMotorPasso) {
         ui->buttonMotorPasso->setText("Ligar");
         stateButtonMotorPasso = false;
-        serial->serialWrite(angulo);
+        serialConnection->serialWrite(angulo);
     } else {
         ui->buttonMotorPasso->setText("Desligar");
         stateButtonMotorPasso = true;
-        serial->serialWrite(desligar);
+        serialConnection->serialWrite(&desligar);
     }
 }

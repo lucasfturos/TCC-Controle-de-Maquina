@@ -22,29 +22,34 @@ ComunicacaoSerial::getAvalilableSerialDevice() {
     return std::make_tuple(infoPortList, infoBaudList);
 }
 
-void ComunicacaoSerial::serialWrite(QByteArray &data) {
+void ComunicacaoSerial::serialWrite(QString data) {
     if (serialDeviceConnected == true) {
-        serial->write(data);
-        qDebug() << "Dados enviados para o dispositivo: " << data;
+        qDebug() << "Enviando: " << data;
+        serial->write(data.toUtf8());
+        serial->flush();
+        qDebug() << "Dados enviados.";
     }
 }
 
 void ComunicacaoSerial::serialRead() {
     if (serialDeviceConnected == true) {
-        serialBuffer.clear();
         serialBuffer += serial->readAll();
     }
 }
 
 void ComunicacaoSerial::serialDataAvalible() {
-    QByteArray data_message = "echoPIC";
-
     if (serialDeviceConnected == true) {
         serialRead();
+        qDebug() << "Recebido: " << serialBuffer;
         if (serialBuffer.indexOf("]") != -1) {
             qDebug() << "Messagem do dispositivo: " << serialBuffer;
-            serialWrite(data_message);
+            serialWrite("echo");
             serialBuffer = "";
         }
+    }
+    if (serial->error() != QSerialPort::NoError) {
+        qDebug() << "Ocorreu um erro na comunicação com o dispositivo: "
+                 << serial->errorString();
+        serialDeviceConnected = false;
     }
 }

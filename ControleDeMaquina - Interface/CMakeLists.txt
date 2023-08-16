@@ -16,7 +16,6 @@ find_package(
     SerialPort
     COMPONENTS
     Widgets
-    LinguistTools
     REQUIRED)
 
 find_package(Qt${QT_VERSION_MAJOR}
@@ -24,12 +23,7 @@ find_package(Qt${QT_VERSION_MAJOR}
     Widgets
     Core
     SerialPort
-    LinguistTools
     REQUIRED)
-
-set(TS_FILES
-    lib/ts/TCC_ControleDeMaquina_pt_BR.ts
-    )
 
 set(PROJECT_SOURCES
     src/main.cpp
@@ -57,7 +51,6 @@ add_executable(ControleDeMaquina
     ${PROJECT_SOURCES}
     ${PROJECT_HEADERS}
     ${PROJECTS_UIS}
-    ${TS_FILES}
     )
 
 target_link_libraries(ControleDeMaquina PRIVATE

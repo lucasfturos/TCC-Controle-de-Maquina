@@ -2,16 +2,13 @@
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent), ui(std::make_shared<Ui::MainWindow>()) {
     comunicaSerial = std::make_shared<ComunicacaoSerial>();
+    area = std::make_shared<AreaDeControle>(nullptr, comunicaSerial);
+
     ui->setupUi(this);
     windowConfigs();
     configSerial();
-    configAreaDeControle();
-}
-
-MainWindow::~MainWindow() {
-    delete ui;
 }
 
 void MainWindow::windowConfigs() {
@@ -20,22 +17,16 @@ void MainWindow::windowConfigs() {
 }
 
 void MainWindow::configSerial() {
-    comunicaSerial->serial = new QSerialPort(this);
+    comunicaSerial->serial = new QSerialPort;
     std::tie(portList, baudList) = comunicaSerial->getAvalilableSerialDevice();
 
     ui->showPorts->addItems(portList);
     ui->showBauds->addItems(baudList);
 
-    connect(comunicaSerial->serial, SIGNAL(comunicaSerial.serial->readyRead()), this,
-            SLOT(comunicaSeria.serialRead()));
-    connect(ui->connectDevice, SIGNAL(clicked()), this,SLOT(comunicaSerial->serialDataAvalible()));
+    connect(comunicaSerial->serial, &QSerialPort::readyRead,
+            comunicaSerial.get(), &ComunicacaoSerial::serialDataAvalible);
 
     comunicaSerial->serialDeviceConnected = false;
-}
-
-void MainWindow::configAreaDeControle() {
-    area = std::make_shared<AreaDeControle>();
-    area->show();
 }
 
 void MainWindow::buttonStatusOn() {
@@ -56,14 +47,13 @@ void MainWindow::buttonStatusOff() {
 
 void MainWindow::on_connectDevice_clicked() {
     comunicaSerial->serial->setPortName(
-                portList[ui->showPorts->currentIndex()].toUtf8());
-    // comunicaSerial.serial->setPortName("/tmp/ttyUSB0");
+        portList[ui->showPorts->currentIndex()].toUtf8());
     qDebug() << "Se conectando com a porta: "
              << comunicaSerial->serial->portName();
 
     if (comunicaSerial->serial->open(QIODevice::ReadWrite)) {
         if (!comunicaSerial->serial->setBaudRate(
-                    baudList[ui->showBauds->currentIndex()].toInt())) {
+                baudList[ui->showBauds->currentIndex()].toInt())) {
             qDebug() << "Conectado com taxa de transmissão de "
                      << baudList[ui->showBauds->currentIndex()].toInt();
             qDebug() << comunicaSerial->serial->errorString();
@@ -78,11 +68,13 @@ void MainWindow::on_connectDevice_clicked() {
             qDebug() << comunicaSerial->serial->errorString();
         }
         if (!comunicaSerial->serial->setFlowControl(
-                    QSerialPort::NoFlowControl)) {
+                QSerialPort::NoFlowControl)) {
             qDebug() << comunicaSerial->serial->errorString();
         }
 
         buttonStatusOn();
+        area->show();
+
         qDebug() << "Conectado na porta : "
                  << comunicaSerial->serial->portName();
         comunicaSerial->serialDeviceConnected = true;
@@ -102,6 +94,7 @@ void MainWindow::on_disconnectDevice_clicked() {
         qDebug() << "A porta" << comunicaSerial->serial->portName()
                  << "foi desconectada com sucesso.";
         buttonStatusOff();
+        area->close();
 
     } else {
         ui->statusConnection->setText("Erro, nenhum dispositivo conectado!!");

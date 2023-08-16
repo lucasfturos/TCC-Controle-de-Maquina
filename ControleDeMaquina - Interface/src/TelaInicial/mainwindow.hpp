@@ -1,10 +1,9 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
-#include <src/AreaDeControle/areadecontrole.hpp>
-#include <src/ComunicacaoSerial/serialport.hpp>
 #include <QMainWindow>
 #include <QScreen>
+#include <src/AreaDeControle/areadecontrole.hpp>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,14 +16,13 @@ class MainWindow : public QMainWindow {
 
   public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
 
   private slots:
     void on_connectDevice_clicked();
     void on_disconnectDevice_clicked();
 
   private:
-    Ui::MainWindow *ui;
+    std::shared_ptr<Ui::MainWindow> ui;
     std::shared_ptr<AreaDeControle> area;
     std::shared_ptr<ComunicacaoSerial> comunicaSerial;
 
@@ -32,7 +30,6 @@ class MainWindow : public QMainWindow {
     void buttonStatusOn();
     void buttonStatusOff();
     void configSerial();
-    void configAreaDeControle();
 
     QStringList baudList, portList;
 };
