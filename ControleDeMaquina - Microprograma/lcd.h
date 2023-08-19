@@ -18,13 +18,12 @@
 #define CTRL_PORT  TRISE // Define porta de controle
 
 void init();
+void LCD_Enable();
 void LCD_Init();
 void LCD_Clear();
-void LCD_Enable();
-void LCD_Linha1();
-void LCD_Linha2();
 void LCD_WriteChar(char c);
 void LCD_WriteString(char *s);
+static void LCD_SendCommand(uint8_t cmd);
 void LCD_SetCursor(uint8_t row, uint8_t col);
 
 #endif	/* LCD_H */

@@ -13,6 +13,14 @@ void init() {
     DATA_PORT = 0x00;
 }
 
+void LCD_Enable() {
+    LCD_RS = 0;                     
+	LCD_RW = 0;                     
+	LCD_EN = 0;                      
+    __delay_us(5000);
+	LCD_EN = 1;  
+}
+
 void LCD_Init() {
     init();
     PORTD = 0X1;
@@ -36,30 +44,11 @@ void LCD_Clear() {
     LCD_EN = 1;
 }
 
-void LCD_Enable() {
-    LCD_RS = 0;                     
-	LCD_RW = 0;                     
-	LCD_EN = 0;                      
-    __delay_us(5000);
-	LCD_EN = 1;  
-}
-
-void LCD_Linha1(){
-    PORTD = 0x02;
+static void LCD_SendCommand(uint8_t cmd) {
+    PORTD = cmd;
     LCD_RS = 0;
     LCD_RW = 0;
-    LCD_EN=0;
-    __delay_us(5000);
-	LCD_EN = 1;
-}
-
-void LCD_Linha2(){
-    PORTD = 0xC0;
-    LCD_RS = 0;
-    LCD_RW = 0;
-    LCD_EN=0;
-    __delay_us(5000);
-	LCD_EN = 1;
+    LCD_Enable();
 }
 
 void LCD_WriteChar(char c) {
@@ -78,15 +67,8 @@ void LCD_WriteString(char *s) {
 }
 
 void LCD_SetCursor(uint8_t row, uint8_t col) {
-    if (row == 1 && col >= 1 && col <= 16) {
-        LCD_Linha1();
-        for (uint8_t i = 1; i < col; i++) {
-            LCD_WriteChar(' ');
-        }
-    } else if (row == 2 && col >= 1 && col <= 16) {
-        LCD_Linha2();
-        for (uint8_t i = 1; i < col; i++) {
-            LCD_WriteChar(' ');
-        }
+    if ((row == 1 || row == 2) && (col >= 1 && col <= 16)) {
+        uint8_t address = (row - 1) * 0x40 + (col - 1);
+        LCD_SendCommand(0x80 | address);
     }
 }

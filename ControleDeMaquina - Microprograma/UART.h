@@ -10,11 +10,12 @@
 
 #include "setup.h"
 
-void UART_Init(const long int baundrate);
-
-void UART_Write(char data);
-
 char UART_Read();
+char UART_Data_Ready();
+void UART_Write(char data);
+void UART_Write_Text(char *text);
+void UART_Init(unsigned int baudrate);
+void UART_Read_Text(char *str);
 
 #endif	/* UART_H */
 

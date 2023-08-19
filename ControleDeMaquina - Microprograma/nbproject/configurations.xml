@@ -7,6 +7,7 @@
       <itemPath>setup.h</itemPath>
       <itemPath>UART.h</itemPath>
       <itemPath>lcd.h</itemPath>
+      <itemPath>step.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -18,6 +19,7 @@
       <itemPath>main.c</itemPath>
       <itemPath>UART.c</itemPath>
       <itemPath>lcd.c</itemPath>
+      <itemPath>step.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
