@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   lcd.h
  * Author: LucasTuros
  *
@@ -14,8 +14,8 @@
 #define LCD_RW RE1
 #define LCD_EN RE2
 
-#define DATA_PORT  TRISD // Define porta de dados
-#define CTRL_PORT  TRISE // Define porta de controle
+#define DATA_PORT TRISD // Define porta de dados
+#define CTRL_PORT TRISE // Define porta de controle
 
 void init();
 void LCD_Enable();
@@ -26,4 +26,4 @@ void LCD_WriteString(char *s);
 static void LCD_SendCommand(uint8_t cmd);
 void LCD_SetCursor(uint8_t row, uint8_t col);
 
-#endif	/* LCD_H */
+#endif /* LCD_H */

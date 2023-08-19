@@ -7,10 +7,10 @@
 #ifndef SETUP_H
 #define	SETUP_H
 
-#include <xc.h>
 #include <pic16f877a.h>
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <xc.h>
 
 #pragma config FOSC = HS   // Oscilador externo de alta velocidade
 #pragma config WDTE = OFF  // Desabilitar Watchdog Timer

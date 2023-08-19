@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   step.h
  * Author: LucasTuros
  *
@@ -6,7 +6,7 @@
  */
 
 #ifndef STEP_H
-#define	STEP_H
+#define STEP_H
 
 #include "setup.h"
 
@@ -23,16 +23,17 @@
 #define IN4_DIR TRISBbits.TRISB4
 
 // Direção do eixo
-#define LEFT  1
+#define LEFT 1
 #define RIGHT 0
 
 char *type;
 unsigned int delay = 1;
 char FullStep[] = {4, 0b0011, 0b0110, 0b1100, 0b1001};
-char HalfStep[] = {8, 0b0001, 0b0011, 0b0010, 0b0110, 0b00100, 0b1100, 0b1000, 0b1001};
+char HalfStep[] = {8, 0b0001, 0b0011, 0b0010, 0b0110,
+                   0b00100, 0b1100, 0b1000, 0b1001};
 
 void stepper_Step(char dir);
 void stepper_setSequence(char *type);
 void stepper_Delay(unsigned nsteps, char rpm);
 
-#endif	/* STEP_H */
+#endif /* STEP_H */

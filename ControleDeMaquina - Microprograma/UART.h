@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   UART.h
  * Author: LucasTuros
  *
@@ -6,7 +6,7 @@
  */
 
 #ifndef UART_H
-#define	UART_H
+#define UART_H
 
 #include "setup.h"
 
@@ -17,5 +17,4 @@ void UART_Write_Text(char *text);
 void UART_Init(unsigned int baudrate);
 void UART_Read_Text(char *str);
 
-#endif	/* UART_H */
-
+#endif /* UART_H */

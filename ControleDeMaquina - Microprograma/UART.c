@@ -12,15 +12,18 @@ void UART_Init(unsigned int baudrate) {
     TRISCbits.TRISC7 = 1; // Define o pino RC7 como entrada (RX)
 
     // Configuração do registrador SPBRG para a taxa de transmissão desejada
-    SPBRG = (_XTAL_FREQ / (16 * (unsigned int) baudrate)) - 1;
-    // Configuração do registrador TXSTA (baixa velocidade de transmissão, habilita transmissão)
+    SPBRG = (_XTAL_FREQ / (16 * (unsigned int)baudrate)) - 1;
+    // Configuração do registrador TXSTA (baixa velocidade de transmissão,
+    // habilita transmissão)
     TXSTA = 0b00100100;
-    // Configuração do registrador RCSTA (habilita porta serial, habilita recepção contínua)
+    // Configuração do registrador RCSTA (habilita porta serial, habilita
+    // recepção contínua)
     RCSTA = 0b10010000;
 }
 
 void UART_Write(char data) {
-    while (!TXIF); // Aguarda o buffer de transmissão estar vazio
+    while (!TXIF)
+        ;         // Aguarda o buffer de transmissão estar vazio
     TXREG = data; // Envia o byte pela porta serial
 }
 
@@ -31,7 +34,7 @@ void UART_Write_Text(char *str) {
 }
 
 char UART_Read() {
-    if (OERR) { // Verifica se houve erro de overflow
+    if (OERR) {   // Verifica se houve erro de overflow
         CREN = 0; // Limpa o erro de overflow
         CREN = 1; // Reabilita a recepção
     }

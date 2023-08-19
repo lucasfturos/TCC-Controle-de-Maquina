@@ -5,8 +5,8 @@
  * Created on 9 de Junho de 2023, 20:32
  */
 
-#include "lcd.h"
 #include "UART.h"
+#include "lcd.h"
 #include "step.h"
 
 #define MESSAGE_TYPE_LCD 'L'
@@ -25,7 +25,7 @@ void setupConfigs() {
     PORTCbits.RC4 = 0;
     // LED
     TRISCbits.TRISC1 = 0; // Define a porta D0 como saída (LED)
-    PORTCbits.RC1 = 1; // Inicialmente, desliga o LED
+    PORTCbits.RC1 = 1;    // Inicialmente, desliga o LED
     // LCD
     LCD_Init();
 }
@@ -33,8 +33,9 @@ void setupConfigs() {
 void showLCD() {
     LCD_Clear();
     LCD_SetCursor(2, 1);
-    //    char str[17]; // Para armazenar uma string de até 16 caracteres + terminador nulo
-    //    UART_Read_Text(str); // Lê a string da comunicação serial
+    //    char str[17]; // Para armazenar uma string de até 16 caracteres +
+    //    terminador nulo UART_Read_Text(str); // Lê a string da comunicação
+    //    serial
     LCD_WriteString("Ola Mundo"); // Escreve a string no LCD
 }
 
@@ -42,10 +43,10 @@ void showLED() {
     char data = UART_Read(); // Lê o byte recebido pela porta serial
     if (data == '1') {
         PORTCbits.RC1 = 0; // Liga o LED
-        UART_Write('L'); // Envia uma confirmação de recebimento
+        UART_Write('L');   // Envia uma confirmação de recebimento
     } else if (data == '0') {
         PORTCbits.RC1 = 1; // Desliga o LED
-        UART_Write('M'); // Envia uma confirmação de recebimento
+        UART_Write('M');   // Envia uma confirmação de recebimento
     }
 }
 

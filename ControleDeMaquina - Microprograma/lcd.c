@@ -14,11 +14,11 @@ void init() {
 }
 
 void LCD_Enable() {
-    LCD_RS = 0;                     
-	LCD_RW = 0;                     
-	LCD_EN = 0;                      
+    LCD_RS = 0;
+    LCD_RW = 0;
+    LCD_EN = 0;
     __delay_us(5000);
-	LCD_EN = 1;  
+    LCD_EN = 1;
 }
 
 void LCD_Init() {
@@ -52,16 +52,16 @@ static void LCD_SendCommand(uint8_t cmd) {
 }
 
 void LCD_WriteChar(char c) {
-   PORTD = c;                   
-	LCD_RS = 1;                      
-	LCD_RW = 0;                      
-	LCD_EN = 0;                       
+    PORTD = c;
+    LCD_RS = 1;
+    LCD_RW = 0;
+    LCD_EN = 0;
     __delay_us(5000);
-	LCD_EN = 1;   
+    LCD_EN = 1;
 }
 
 void LCD_WriteString(char *s) {
-    while(*s){
+    while (*s) {
         LCD_WriteChar(*s++);
     }
 }

@@ -1,6 +1,6 @@
 #include "step.h"
 
-void stepper_setSequence(char* type_) {
+void stepper_setSequence(char *type_) {
     IN1_DIR = 0;
     IN2_DIR = 0;
     IN3_DIR = 0;
@@ -27,6 +27,6 @@ void stepper_Step(char dir) {
     IN3 = (value & 0b0010) ? 1 : 0;
     IN2 = (value & 0b0100) ? 1 : 0;
     IN1 = (value & 0b1000) ? 1 : 0;
-    
+
     __delay_ms(500);
 }
