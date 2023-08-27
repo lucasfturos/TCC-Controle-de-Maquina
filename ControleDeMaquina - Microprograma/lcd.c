@@ -14,50 +14,50 @@ void init() {
 }
 
 void LCD_Enable() {
-    LCD_RS = 0;
-    LCD_RW = 0;
-    LCD_EN = 0;
+    LCD_RS = 0x00;
+    LCD_RW = 0x00;
+    LCD_EN = 0x00;
     __delay_us(5000);
-    LCD_EN = 1;
+    LCD_EN = 0x01;
 }
 
 void LCD_Init() {
     init();
-    PORTD = 0X1;
+    PORTD = 0x1;
     LCD_Enable();
-    PORTD = 0X38;
+    PORTD = 0x38;
     LCD_Enable();
-    PORTD = 0X0e;
+    PORTD = 0x0e;
     LCD_Enable();
-    PORTD = 0X06;
+    PORTD = 0x06;
     LCD_Enable();
-    PORTD = 0X80;
+    PORTD = 0x80;
     LCD_Enable();
 }
 
 void LCD_Clear() {
     PORTD = 0x01;
-    LCD_RS = 0;
-    LCD_RW = 0;
-    LCD_EN = 0;
+    LCD_RS = 0x00;
+    LCD_RW = 0x00;
+    LCD_EN = 0x00;
     __delay_us(5000);
-    LCD_EN = 1;
+    LCD_EN = 0x01;
 }
 
 static void LCD_SendCommand(uint8_t cmd) {
     PORTD = cmd;
-    LCD_RS = 0;
-    LCD_RW = 0;
+    LCD_RS = 0x00;
+    LCD_RW = 0x00;
     LCD_Enable();
 }
 
 void LCD_WriteChar(char c) {
     PORTD = c;
-    LCD_RS = 1;
-    LCD_RW = 0;
-    LCD_EN = 0;
+    LCD_RS = 0x01;
+    LCD_RW = 0x00;
+    LCD_EN = 0x00;
     __delay_us(5000);
-    LCD_EN = 1;
+    LCD_EN = 0x01;
 }
 
 void LCD_WriteString(char *s) {

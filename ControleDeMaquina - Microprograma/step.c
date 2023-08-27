@@ -1,6 +1,6 @@
 #include "step.h"
 
-void stepper_setSequence(char *type_) {
+void Stepper_SetSequence(char *type_) {
     IN1_DIR = 0;
     IN2_DIR = 0;
     IN3_DIR = 0;
@@ -8,25 +8,33 @@ void stepper_setSequence(char *type_) {
     type = type_;
 }
 
-void stepper_Delay(unsigned nsteps, char rpm) {
-    delay = 60000 / (nsteps * rpm);
+void Stepper_Delay(unsigned nsteps, char rpm) {
+    // Configurar o Timer 1 como temporizador de 16 bits
+    T1CON = 0x01; // Ativar o Timer 1 com prescaler 1:1
+
+    // Calcula o valor de contagem para o atraso
+    unsigned int delayCount = (unsigned int) ((float) (60000) / (nsteps * rpm));
+
+    // Configura o valor inicial do Timer 1
+    TMR1H = delayCount >> 8; // Parte alta
+    TMR1L = delayCount; // Parte baixa
+
+    // Aguarda a interrupção do Timer 1
+    while (!TMR1IF);
+
+    // Limpa a flag de interrupção do Timer 1
+    TMR1IF = 0;
 }
 
-void stepper_Step(char dir) {
+void Stepper_Step(char dir) {
     static unsigned step_count = 0;
     char len = type[0];
     char value = type[(step_count % len) + 1];
 
-    if (dir == 0) {
-        step_count++;
-    } else {
-        step_count++;
-    }
+    dir == 0 ? step_count++ : step_count--;
 
-    IN4 = (value & 0b0001) ? 1 : 0;
-    IN3 = (value & 0b0010) ? 1 : 0;
-    IN2 = (value & 0b0100) ? 1 : 0;
-    IN1 = (value & 0b1000) ? 1 : 0;
-
-    __delay_ms(500);
+    IN4 = (value & 0x01) ? 1 : 0;
+    IN3 = (value & 0x02) ? 1 : 0;
+    IN2 = (value & 0x04) ? 1 : 0;
+    IN1 = (value & 0x08) ? 1 : 0;
 }

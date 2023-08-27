@@ -27,13 +27,10 @@
 #define RIGHT 0
 
 char *type;
-unsigned int delay = 1;
-char FullStep[] = {4, 0b0011, 0b0110, 0b1100, 0b1001};
-char HalfStep[] = {8, 0b0001, 0b0011, 0b0010, 0b0110,
-                   0b00100, 0b1100, 0b1000, 0b1001};
+char FullStep[] = {4, 0x03, 0x06, 0x0C, 0x09};
 
-void stepper_Step(char dir);
-void stepper_setSequence(char *type);
-void stepper_Delay(unsigned nsteps, char rpm);
+void Stepper_Step(char dir);
+void Stepper_SetSequence(char *type);
+void Stepper_Delay(unsigned nsteps, char rpm);
 
 #endif /* STEP_H */

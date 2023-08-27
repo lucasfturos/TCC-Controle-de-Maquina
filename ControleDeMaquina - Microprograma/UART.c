@@ -15,10 +15,10 @@ void UART_Init(unsigned int baudrate) {
     SPBRG = (_XTAL_FREQ / (16 * (unsigned int)baudrate)) - 1;
     // Configuração do registrador TXSTA (baixa velocidade de transmissão,
     // habilita transmissão)
-    TXSTA = 0b00100100;
+    TXSTA = 0x24;
     // Configuração do registrador RCSTA (habilita porta serial, habilita
     // recepção contínua)
-    RCSTA = 0b10010000;
+    RCSTA = 0x90;
 }
 
 void UART_Write(char data) {
@@ -46,8 +46,8 @@ char UART_Read() {
 
 void UART_Read_Text(char *str) {
     char c;
-    do {
+    while (c != '\n') {
         c = UART_Read();
         *str += c;
-    } while (c != '\0');
+    } 
 }

@@ -33,8 +33,8 @@ set(PROJECT_SOURCES
     )
 
 set(PROJECTS_UIS
-    lib/ui/mainwindow.ui
-    lib/ui/areadecontrole.ui
+    ui/mainwindow.ui
+    ui/areadecontrole.ui
     )
 
 set(PROJECT_HEADERS
@@ -44,7 +44,7 @@ set(PROJECT_HEADERS
     )
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS
-    ${PROJECT_SOURCE_DIR}/lib/ui
+    ${PROJECT_SOURCE_DIR}/ui
     )
 
 add_executable(ControleDeMaquina
