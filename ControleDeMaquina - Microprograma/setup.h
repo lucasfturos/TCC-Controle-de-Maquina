@@ -4,11 +4,13 @@
  *
  * Created on 9 de Junho de 2023, 20:34
  */
+
 #ifndef SETUP_H
 #define	SETUP_H
 
 #include <pic16f877a.h>
 #include <stdint.h>
+#include <string.h>
 #include <stdio.h>
 #include <xc.h>
 
@@ -21,6 +23,6 @@
 #pragma config LVP = OFF   // Desabilitar Low-Voltage Programming
 #pragma config CP = OFF // Flash Program Memory Code Protection bit (Code protection off)
 
-#define _XTAL_FREQ 20000000  // Frequência do oscilador (4MHz)
+#define _XTAL_FREQ 20000000  // Frequência do oscilador (20MHz)
 
 #endif	/* SETUP_H */

@@ -10,6 +10,7 @@
 
 #include "setup.h"
 
+// Declaração das funções
 char UART_Read();
 char UART_Data_Ready();
 void UART_Write(char data);

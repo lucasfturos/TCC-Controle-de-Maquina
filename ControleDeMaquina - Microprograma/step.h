@@ -26,10 +26,11 @@
 #define LEFT 1
 #define RIGHT 0
 
-char *type;
-char FullStep[] = {4, 0x03, 0x06, 0x0C, 0x09};
+char *type; // Array de bytes representando a sequência do motor
+char FullStep[] = {4, 0x03, 0x06, 0x0C, 0x09}; // Passos
 
-void Stepper_Step(char dir);
+// Declaração das funções
+void Stepper_Step(uint8_t dir);
 void Stepper_SetSequence(char *type);
 void Stepper_Delay(unsigned nsteps, char rpm);
 
