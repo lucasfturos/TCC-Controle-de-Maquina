@@ -23,9 +23,10 @@ ComunicacaoSerial::getAvalilableSerialDevice() {
 }
 
 void ComunicacaoSerial::serialWrite(QString data) {
+    QByteArray cmd = data.toLatin1();
     if (serialDeviceConnected == true) {
-        qDebug() << "Enviando: " << data;
-        serial->write(data.toUtf8());
+        qDebug() << "Enviando: " << cmd;
+        serial->write(cmd);
         serial->flush();
         qDebug() << "Dados enviados.";
     }
@@ -41,15 +42,14 @@ void ComunicacaoSerial::serialDataAvalible() {
     if (serialDeviceConnected == true) {
         serialRead();
         qDebug() << "Recebido: " << serialBuffer;
-        if (serialBuffer.indexOf("]") != -1) {
-            qDebug() << "Messagem do dispositivo: " << serialBuffer;
-            serialWrite("echo");
-            serialBuffer = "";
+        int endIndex = serialBuffer.indexOf('\n'); // Encontre o fim da mensagem
+        if (endIndex != -1) {
+            QString mensagem = serialBuffer.left(endIndex); // Extrai a mensagem
+            qDebug() << "Mensagem do dispositivo: " << mensagem;
+            serialWrite("echo"); // Envie uma resposta
+            serialBuffer =
+                serialBuffer.mid(endIndex + 1); // Remove a mensagem do buffer
         }
-    }
-    if (serial->error() != QSerialPort::NoError) {
-        qDebug() << "Ocorreu um erro na comunicação com o dispositivo: "
-                 << serial->errorString();
-        serialDeviceConnected = false;
+        serialBuffer.clear();
     }
 }

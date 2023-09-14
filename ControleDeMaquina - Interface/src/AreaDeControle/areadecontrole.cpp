@@ -53,8 +53,8 @@ void AreaDeControle::setupMotorPasso() {
 }
 
 void AreaDeControle::on_buttonLed_clicked() {
-    QString led1 = "L";
-    QString led0 = "O";
+    QString led1 = "11";
+    QString led0 = "10";
 
     if (stateButtonLed) {
         ui->buttonLed->setText("Ligar");
@@ -68,34 +68,29 @@ void AreaDeControle::on_buttonLed_clicked() {
 }
 
 void AreaDeControle::on_buttonMotorEletric_clicked() {
-    char motor1 = 'A', motor0 = 'B';
+    QString motor1 = "MD", motor0 = "MC";
     if (stateButtonMotorEletrico) {
         ui->buttonMotorEletric->setText("Ligar");
         stateButtonMotorEletrico = false;
-        serialConnection->serialWrite(&motor0);
+        serialConnection->serialWrite(motor0.toUtf8());
     } else {
         ui->buttonMotorEletric->setText("Desligar");
         stateButtonMotorEletrico = true;
-        serialConnection->serialWrite(&motor1);
+        serialConnection->serialWrite(motor1.toUtf8());
     }
 }
 
 void AreaDeControle::on_enviarDisplayLCD_clicked() {
-    QString mensagem = ui->mensagemDisplayLCD->currentText();
-
-    // connectSerial->serialWrite(aux);
+    QString mensagem = ui->textEditDisplayLcd->toPlainText();
+    QString data = '!' + mensagem + ';';
+    serialConnection->serialWrite(data);
 }
 
 void AreaDeControle::on_buttonMotorPasso_clicked() {
-    QString angulo = "90";
-    char desligar = 'd';
+    QString angulo = "S";
     if (stateButtonMotorPasso) {
         ui->buttonMotorPasso->setText("Ligar");
         stateButtonMotorPasso = false;
-        serialConnection->serialWrite(angulo);
-    } else {
-        ui->buttonMotorPasso->setText("Desligar");
-        stateButtonMotorPasso = true;
-        serialConnection->serialWrite(&desligar);
+        serialConnection->serialWrite(angulo.toUtf8());
     }
 }
