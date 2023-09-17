@@ -29,8 +29,8 @@ void AreaDeControle::setupLed() {
 void AreaDeControle::setupDisplayLCD() {
     mensagemPreProgramadas = {
         "Mensagens Pré-Programadas", "Problemas no Motor 1",
-        "Problemas na Valvula",      "Aviso: Saída imediata",
-        "Aviso: Incendio",           "Aviso: Gás Vazando"};
+        "Problemas na Valvula",      "Aviso: Saida imediata",
+        "Aviso: Incendio",           "Aviso: Gas Vazando"};
 
     // ComboBox
     ui->mensagemDisplayLCD->addItems(mensagemPreProgramadas);
@@ -82,8 +82,17 @@ void AreaDeControle::on_buttonMotorEletric_clicked() {
 
 void AreaDeControle::on_enviarDisplayLCD_clicked() {
     QString mensagem = ui->textEditDisplayLcd->toPlainText();
-    QString data = '!' + mensagem + ';';
-    serialConnection->serialWrite(data);
+    QString mgProgramada = ui->mensagemDisplayLCD->currentText();
+    QString data = "!" + mensagem + ";";
+
+    if (!data.isEmpty()) {
+        serialConnection->serialWrite(data);
+    }
+
+    int selectedIdx = ui->mensagemDisplayLCD->currentIndex();
+    if (selectedIdx > 0) {
+        serialConnection->serialWrite("!" + mgProgramada + ";");
+    }
 }
 
 void AreaDeControle::on_buttonMotorPasso_clicked() {

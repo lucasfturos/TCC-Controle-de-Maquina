@@ -23,11 +23,9 @@ ComunicacaoSerial::getAvalilableSerialDevice() {
 }
 
 void ComunicacaoSerial::serialWrite(QString data) {
-    QByteArray cmd = data.toLatin1();
     if (serialDeviceConnected == true) {
-        qDebug() << "Enviando: " << cmd;
-        serial->write(cmd);
-        serial->flush();
+        qDebug() << "Enviando: " << data;
+        serial->write(data.toUtf8());
         qDebug() << "Dados enviados.";
     }
 }
@@ -48,7 +46,7 @@ void ComunicacaoSerial::serialDataAvalible() {
             qDebug() << "Mensagem do dispositivo: " << mensagem;
             serialWrite("echo"); // Envie uma resposta
             serialBuffer =
-                serialBuffer.mid(endIndex + 1); // Remove a mensagem do buffer
+                    serialBuffer.mid(endIndex + 1); // Remove a mensagem do buffer
         }
         serialBuffer.clear();
     }

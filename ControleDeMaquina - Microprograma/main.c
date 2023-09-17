@@ -78,55 +78,42 @@ void main(void) {
         if (UART_Data_Ready()) { // Verifica se há dados prontos para leitura no
             // UART
             response = UART_Read(); // Lê o caractere recebido
-            if (MESSAGE_TYPE_LCD == response) {
-                if (!onDisplay) { // Se o display não estiver ativado, ativa e
-                    // inicializa
-                    onDisplay = 1;
-                    cmdLCD = 1;
-                    UART_Write_Text("LCD"); // Envia confirmação para o UART
-                    LCD_Clear();
-                    LCD_SetCursor(1, 1); // Posiciona o cursor na primeira
-                    // linha, primeira coluna
-                    textIndex = 0;
-                    text[0] = '\0'; // Limpa o buffer de texto
-                    line1[0] = '\0'; // Limpa a primeira linha
-                    line2[0] = '\0'; // Limpa a segunda linha
+            if (response == MESSAGE_TYPE_LCD) {
+                // Se o caractere '!' for recebido, ative o modo de comando do LCD
+                onDisplay = 1;
+                cmdLCD = 1;
+                textIndex = 0;
+                text[0] = '\0'; // Limpa o buffer de texto
+                line1[0] = '\0'; // Limpa a primeira linha
+                line2[0] = '\0'; // Limpa a segunda linha
+            } else if (onDisplay && response == ';') {
+                // Se ';' for recebido, desative o modo de comando do LCD e escreva o texto no LCD
+                onDisplay = 0;
+                cmdLCD = 0;
+                text[textIndex] = '\0'; // Encerra o texto
+                LCD_Clear();
+                LCD_SetCursor(1, 1);
+                LCD_Write_Text(text); // Escreve o texto no LCD
+                if (line2[0] != '\0') {
+                    LCD_SetCursor(2, 1);
+                    LCD_Write_Text(line2);
                 }
-            } else if (cmdLCD) { // Se o display estiver ativado
-                // Caractere ';' indica o final do comando
-                if (response == ';') {
-                    onDisplay = 0; // Desativa o display
-                    cmdLCD = 0;
-                    text[textIndex] = '\0'; // Encerra o texto
-                    // Escreve o texto completo no LCD, dividindo-o entre as
-                    // duas linhas
-                    if (textIndex <= 32) {
-                        LCD_Write_Text(line1); // Escreve a primeira linha
-                        // Move o cursor para a segunda linha
-                        LCD_SetCursor(2, 1);
-                        LCD_Write_Text(line2); // Escreve a segunda linha
-                    }
-                } else {
-                    if (textIndex < 32) { // Evita estouro de buffer
-                        // Adiciona o caractere ao buffer de texto
-                        text[textIndex++] = response;
-                        if (textIndex == 16) {
-                            text[textIndex] = '\0'; // Encerra a primeira linha
-                            uint8_t i = 0;
-                            // Copia a primeira linha
-                            while (text[i] != '\0') {
-                                line1[i] = text[i];
-                                i++;
-                            }
-                            line1[16] = '\0'; // Encerra a primeira linha
-                            line2[0] = '\0'; // Limpa a segunda linha
-                        } else if (textIndex > 16) {
-                            // Adiciona o caractere à segunda linha
-                            line2[textIndex - 17] = response;
-                            // Encerra a segunda linha
-                            line2[textIndex - 16] = '\0';
+            } else if (onDisplay) {
+                // Se o modo de comando do LCD estiver ativado, adicione o caractere ao buffer de texto
+                if (textIndex < 32) {
+                    text[textIndex++] = response;
+                    if (textIndex == 16) {
+                        text[textIndex] = '\0'; // Encerra a primeira linha
+                        uint8_t i = 0;
+                        while (text[i] != '\0') {
+                            line1[i] = text[i];
+                            i++;
                         }
-                        LCD_Write_Char(response); // Escreve o caractere no LCD
+                        line1[16] = '\0'; // Encerra a primeira linha
+                        line2[0] = '\0'; // Limpa a segunda linha
+                    } else if (textIndex > 16) {
+                        line2[textIndex - 17] = response;
+                        line2[textIndex - 16] = '\0'; // Encerra a segunda linha
                     }
                 }
             }

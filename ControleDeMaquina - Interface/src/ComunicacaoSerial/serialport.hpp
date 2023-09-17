@@ -13,7 +13,6 @@ class ComunicacaoSerial : public QObject {
     std::tuple<QStringList, QStringList> getAvalilableSerialDevice();
     QSerialPort *serial;
     bool serialDeviceConnected;
-    void logData(QByteArray &data);
     void serialWrite(QString data);
 
   public slots:
