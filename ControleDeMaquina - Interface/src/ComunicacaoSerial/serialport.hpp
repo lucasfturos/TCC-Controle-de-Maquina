@@ -13,7 +13,7 @@ class ComunicacaoSerial : public QObject {
     std::tuple<QStringList, QStringList> getAvalilableSerialDevice();
     QSerialPort *serial;
     bool serialDeviceConnected;
-    void serialWrite(QString data);
+    void serialWrite(QByteArray data);
 
   public slots:
     void serialDataAvalible();
@@ -23,7 +23,7 @@ class ComunicacaoSerial : public QObject {
     QSerialPortInfo *serialInfo;
     QStringList infoBaudList;
     QStringList infoPortList;
-    QString serialBuffer;
+    QByteArray serialBuffer;
 };
 
 #endif // SERIALPORT_HPP

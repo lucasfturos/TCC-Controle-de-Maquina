@@ -21,7 +21,7 @@ void setupConfigs() {
     // UART
     UART_Init(9600); // Baudrate 9600
     // Motor de passo
-    Stepper_SetSequence(FullStep); // Define a sequência de passos completo
+    IN1_DIR = IN2_DIR = IN3_DIR = IN4_DIR = 0;
     // Motor DC
     TRISCbits.TRISC4 = 0; // Define a porta D0 como saída (Motor)
     PORTCbits.RC4 = 0; // Inicialmente, desliga o Motor
@@ -62,8 +62,16 @@ void runMotorDC() {
 // Função para controle do Motor de Passo
 
 void runStepper() {
-    Stepper_Step(RIGHT);
-    Stepper_Delay(32, 1);
+    char data = UART_Read();
+    if (data == 'L') {
+        Stepper_Step(LEFT);
+        Stepper_Delay(32, 1);
+        UART_Write('L');
+    } else if (data == 'R') {
+        Stepper_Step(RIGHT);
+        Stepper_Delay(32, 1);
+        UART_Write('R');
+    }
 }
 
 void main(void) {
@@ -86,6 +94,7 @@ void main(void) {
                 text[0] = '\0'; // Limpa o buffer de texto
                 line1[0] = '\0'; // Limpa a primeira linha
                 line2[0] = '\0'; // Limpa a segunda linha
+                UART_Write_Text("LCD");
             } else if (onDisplay && response == ';') {
                 // Se ';' for recebido, desative o modo de comando do LCD e escreva o texto no LCD
                 onDisplay = 0;

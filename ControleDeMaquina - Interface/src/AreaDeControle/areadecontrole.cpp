@@ -28,9 +28,9 @@ void AreaDeControle::setupLed() {
 
 void AreaDeControle::setupDisplayLCD() {
     mensagemPreProgramadas = {
-        "Mensagens Pré-Programadas", "Problemas no Motor 1",
-        "Problemas na Valvula",      "Aviso: Saida imediata",
-        "Aviso: Incendio",           "Aviso: Gas Vazando"};
+        "Mensagens Pré-Programadas", "Problema: motor 1",
+        "Problema: valvula",      "Aviso: saida imediata",
+        "Aviso: incendio",           "Aviso: Gas vazando"};
 
     // ComboBox
     ui->mensagemDisplayLCD->addItems(mensagemPreProgramadas);
@@ -42,7 +42,7 @@ void AreaDeControle::setupDisplayLCD() {
 void AreaDeControle::setupMotorPasso() {
     ui->buttonMotorPasso->setText("Ligar");
     stateButtonMotorPasso = false;
-    infoEstadoValvula = {"Estado de Abertuda da Valvula", "Baixa", "Média",
+    infoEstadoValvula = {"Estado de Abertuda da Valvula","Fechar", "Baixa", "Média",
                          "Alta"};
 
     // ComboBox
@@ -85,21 +85,30 @@ void AreaDeControle::on_enviarDisplayLCD_clicked() {
     QString mgProgramada = ui->mensagemDisplayLCD->currentText();
     QString data = "!" + mensagem + ";";
 
-    if (!data.isEmpty()) {
-        serialConnection->serialWrite(data);
+    if (!mensagem.isEmpty()) {
+        serialConnection->serialWrite(data.toUtf8());
     }
 
     int selectedIdx = ui->mensagemDisplayLCD->currentIndex();
     if (selectedIdx > 0) {
-        serialConnection->serialWrite("!" + mgProgramada + ";");
+        QString datapg = "!" + mgProgramada + ";";
+        serialConnection->serialWrite(datapg.toUtf8());
     }
 }
 
 void AreaDeControle::on_buttonMotorPasso_clicked() {
-    QString angulo = "S";
+
     if (stateButtonMotorPasso) {
-        ui->buttonMotorPasso->setText("Ligar");
         stateButtonMotorPasso = false;
-        serialConnection->serialWrite(angulo.toUtf8());
+        ui->buttonMotorPasso->setText("Ligar");
+        for (int i = 0; i < 10; ++i) {
+            serialConnection->serialWrite("SL\n");
+        }
+    } else {
+        ui->buttonMotorPasso->setText("Desligar");
+        stateButtonMotorPasso = true;
+        for (int i = 0; i < 10; ++i) {
+            serialConnection->serialWrite("SR\n");
+        }
     }
 }

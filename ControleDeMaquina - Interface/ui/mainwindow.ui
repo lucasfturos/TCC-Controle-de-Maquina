@@ -49,7 +49,7 @@ color: #fff;
           </font>
          </property>
          <property name="text">
-          <string>Baund</string>
+          <string>Baud</string>
          </property>
         </widget>
        </item>
