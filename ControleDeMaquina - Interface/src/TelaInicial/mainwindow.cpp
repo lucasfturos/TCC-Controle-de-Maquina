@@ -46,8 +46,9 @@ void MainWindow::buttonStatusOff() {
 }
 
 void MainWindow::on_connectDevice_clicked() {
-    // comunicaSerial->serial->setPortName(portList[ui->showPorts->currentIndex()].toUtf8());
-    comunicaSerial->serial->setPortName("/dev/pts/3"); // Porta de testes
+    comunicaSerial->serial->setPortName(
+        portList[ui->showPorts->currentIndex()].toUtf8());
+    // comunicaSerial->serial->setPortName("/dev/pts/3"); // Porta de testes
     qDebug() << "Se conectando com a porta: "
              << comunicaSerial->serial->portName();
 
