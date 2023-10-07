@@ -9,6 +9,12 @@
 #include "lcd.h"
 #include "step.h"
 
+// Macros do motor DC e LED
+#define LED_INIT TRISCbits.TRISC1
+#define MOTOR_INIT TRISCbits.TRISC4
+#define LED_REG RC1
+#define MOTOR_REG RC4
+
 // Macros das mensagens
 #define MESSAGE_TYPE_LCD '!'
 #define MESSAGE_TYPE_LED '1'
@@ -21,13 +27,14 @@ void setupConfigs() {
     // UART
     UART_Init(9600); // Baudrate 9600
     // Motor de passo
+    T1CON = 0x01;
     IN1_DIR = IN2_DIR = IN3_DIR = IN4_DIR = 0;
     // Motor DC
-    TRISCbits.TRISC4 = 0; // Define a porta D0 como saída (Motor)
-    PORTCbits.RC4 = 0; // Inicialmente, desliga o Motor
+    MOTOR_INIT = 0; // Define a porta D0 como saída (Motor)
+    MOTOR_REG = 0; // Inicialmente, desliga o Motor
     // LED
-    TRISCbits.TRISC1 = 0; // Define a porta D0 como saída (LED)
-    PORTCbits.RC1 = 1; // Inicialmente, desliga o LED
+    LED_INIT = 0; // Define a porta D0 como saída (LED)
+    LED_REG = 1; // Inicialmente, desliga o LED
     // LCD
     LCD_Init(); // Inicializa o display
     LCD_Clear();
@@ -38,10 +45,10 @@ void setupConfigs() {
 void showLED() {
     char data = UART_Read(); // Lê o byte recebido pela porta serial
     if (data == '1') {
-        PORTCbits.RC1 = 0; // Liga o LED
+        LED_REG = 0; // Liga o LED
         UART_Write('O'); // Envia uma confirmação de recebimento
     } else if (data == '0') {
-        PORTCbits.RC1 = 1; // Desliga o LED
+        LED_REG = 1; // Desliga o LED
         UART_Write('M'); // Envia uma confirmação de recebimento
     }
 }
@@ -51,10 +58,10 @@ void showLED() {
 void runMotorDC() {
     char data = UART_Read();
     if (data == 'D') {
-        PORTCbits.RC4 = 1; // Liga o Motor
+        MOTOR_REG = 1; // Liga o Motor
         UART_Write('D'); // Envia uma confirmação de recebimento
     } else if (data == 'C') {
-        PORTCbits.RC4 = 0; // Desliga o Motor
+        MOTOR_REG = 0; // Desliga o Motor
         UART_Write('D'); // Envia uma confirmação de recebimento
     }
 }

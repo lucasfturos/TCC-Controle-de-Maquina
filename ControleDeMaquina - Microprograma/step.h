@@ -26,7 +26,6 @@
 #define LEFT 1
 #define RIGHT 0
 
-int step_count = 0;
 char FullStep[] = {4, 0x03, 0x06, 0x0C, 0x09}; // Passos
 
 // Declaração das funções

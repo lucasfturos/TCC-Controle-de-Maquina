@@ -46,14 +46,14 @@ void MainWindow::buttonStatusOff() {
 }
 
 void MainWindow::on_connectDevice_clicked() {
-//    comunicaSerial->serial->setPortName(portList[ui->showPorts->currentIndex()].toUtf8());
-     comunicaSerial->serial->setPortName("/dev/pts/1"); // Porta de testes
+    // comunicaSerial->serial->setPortName(portList[ui->showPorts->currentIndex()].toUtf8());
+    comunicaSerial->serial->setPortName("/dev/pts/3"); // Porta de testes
     qDebug() << "Se conectando com a porta: "
              << comunicaSerial->serial->portName();
 
     if (comunicaSerial->serial->open(QIODevice::ReadWrite)) {
         if (!comunicaSerial->serial->setBaudRate(
-                    baudList[ui->showBauds->currentIndex()].toInt())) {
+                baudList[ui->showBauds->currentIndex()].toInt())) {
             qDebug() << "Conectado com taxa de transmissão de "
                      << baudList[ui->showBauds->currentIndex()].toInt();
             qDebug() << comunicaSerial->serial->errorString();
@@ -68,7 +68,7 @@ void MainWindow::on_connectDevice_clicked() {
             qDebug() << comunicaSerial->serial->errorString();
         }
         if (!comunicaSerial->serial->setFlowControl(
-                    QSerialPort::NoFlowControl)) {
+                QSerialPort::NoFlowControl)) {
             qDebug() << comunicaSerial->serial->errorString();
         }
 

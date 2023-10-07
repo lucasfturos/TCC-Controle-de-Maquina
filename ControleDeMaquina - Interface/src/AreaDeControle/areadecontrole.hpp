@@ -6,8 +6,8 @@
 #include <QMainWindow>
 #include <QScreen>
 #include <QTextEdit>
-#include <memory>
 #include <cmath>
+#include <memory>
 #include <src/ComunicacaoSerial/serialport.hpp>
 
 namespace Ui {

@@ -98,21 +98,6 @@ color: #fff;</string>
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QTextEdit" name="testeMotorPasso">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>31</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="layoutWidget">

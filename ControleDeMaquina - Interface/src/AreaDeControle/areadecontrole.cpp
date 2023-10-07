@@ -28,9 +28,10 @@ void AreaDeControle::setupLed() {
 
 void AreaDeControle::setupDisplayLCD() {
     mensagemPreProgramadas = {
-        "Mensagens Pré-Programadas", "Problema: motor 1",
-        "Problema: valvula",      "Aviso: saida imediata",
-        "Aviso: incendio",           "Aviso: Gas vazando"};
+        "Mensagens Pré-Programadas", "Problema: motor explodiu",
+        "Problema: valvula",         "Aviso: saida imediata",
+        "Aviso: incendio",           "Aviso: Gas vazando",
+    };
 
     // ComboBox
     ui->mensagemDisplayLCD->addItems(mensagemPreProgramadas);
@@ -42,14 +43,15 @@ void AreaDeControle::setupDisplayLCD() {
 void AreaDeControle::setupMotorPasso() {
     ui->buttonMotorPasso->setText("Ligar");
     stateButtonMotorPasso = false;
-    infoEstadoValvula = {"Estado de Abertuda da Valvula","Fechar", "Baixa", "Média",
-                         "Alta"};
+    infoEstadoValvula = {
+        "Estado de Abertuda da Valvula",
+        "Baixa",
+        "Média",
+        "Alta",
+    };
 
     // ComboBox
     ui->estadoValvula->addItems(infoEstadoValvula);
-
-    // TextEdit
-    ui->testeMotorPasso->setPlaceholderText("Informe um ângulo");
 }
 
 void AreaDeControle::on_buttonLed_clicked() {
@@ -83,9 +85,9 @@ void AreaDeControle::on_buttonMotorEletric_clicked() {
 void AreaDeControle::on_enviarDisplayLCD_clicked() {
     QString mensagem = ui->textEditDisplayLcd->toPlainText();
     QString mgProgramada = ui->mensagemDisplayLCD->currentText();
-    QString data = "!" + mensagem + ";";
 
     if (!mensagem.isEmpty()) {
+        QString data = "!" + mensagem + ";";
         serialConnection->serialWrite(data.toUtf8());
     }
 
@@ -97,18 +99,36 @@ void AreaDeControle::on_enviarDisplayLCD_clicked() {
 }
 
 void AreaDeControle::on_buttonMotorPasso_clicked() {
+    int selectedIdx = ui->estadoValvula->currentIndex();
 
-    if (stateButtonMotorPasso) {
-        stateButtonMotorPasso = false;
-        ui->buttonMotorPasso->setText("Ligar");
-        for (int i = 0; i < 10; ++i) {
-            serialConnection->serialWrite("SL\n");
+    if (selectedIdx >= 1 && selectedIdx <= 3) {
+        int numCommands = 0;
+
+        // Mapeia o índice selecionado para o número de comandos
+        switch (selectedIdx) {
+        case 1:
+            numCommands = 90;
+            break;
+        case 2:
+            numCommands = 180;
+            break;
+        case 3:
+            numCommands = 360;
+            break;
+        default:
+            break;
         }
-    } else {
-        ui->buttonMotorPasso->setText("Desligar");
-        stateButtonMotorPasso = true;
-        for (int i = 0; i < 10; ++i) {
-            serialConnection->serialWrite("SR\n");
+
+        if (numCommands > 0) {
+            QString command = (stateButtonMotorPasso) ? "SL\n" : "SR\n";
+
+            for (int i = 0; i < numCommands; ++i) {
+                serialConnection->serialWrite(command.toUtf8());
+            }
+
+            stateButtonMotorPasso = !stateButtonMotorPasso;
+            ui->buttonMotorPasso->setText((stateButtonMotorPasso) ? "Ligar"
+                                                                  : "Desligar");
         }
     }
 }
