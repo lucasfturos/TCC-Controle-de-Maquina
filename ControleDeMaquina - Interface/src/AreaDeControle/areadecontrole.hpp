@@ -18,6 +18,7 @@ class AreaDeControle : public QMainWindow {
     Q_OBJECT
 
   public:
+    // Constructor
     explicit AreaDeControle(
         QWidget *parent = nullptr,
         std::shared_ptr<ComunicacaoSerial> connectSerial = nullptr);
@@ -29,14 +30,17 @@ class AreaDeControle : public QMainWindow {
     void on_buttonMotorEletric_clicked();
 
   private:
+    // Funções
     void setupLed();
     void setupDisplayLCD();
     void setupMotorPasso();
     void setupMotorEletrico();
 
+    // Classes
     std::shared_ptr<Ui::AreaDeControle> ui;
     std::shared_ptr<ComunicacaoSerial> serialConnection;
 
+    // Variáveis
     QList<QString> mensagemPreProgramadas;
     QList<QString> infoEstadoValvula;
     bool stateButtonLed;

@@ -10,16 +10,20 @@
 class ComunicacaoSerial : public QObject {
     Q_OBJECT
   public:
-    std::tuple<QStringList, QStringList> getAvalilableSerialDevice();
+    // Variáveis
     QSerialPort *serial;
     bool serialDeviceConnected;
+
+    // Funções
     void serialWrite(QByteArray data);
+    std::tuple<QStringList, QStringList> getAvalilableSerialDevice();
 
   public slots:
     void serialDataAvalible();
     void serialRead();
 
   private:
+    // Variáveis
     QSerialPortInfo *serialInfo;
     QStringList infoBaudList;
     QStringList infoPortList;

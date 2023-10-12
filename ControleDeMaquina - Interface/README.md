@@ -16,6 +16,7 @@ Para Windows use o MinGw
 
 Após instalar o compilador e ferramentas utilitárias, é necessário instalar o SDK do Qt.
 Para isso acesse o site da [Documentação do Qt](https://doc.qt.io/qt-5/) e siga os passos para instalar.
+Também, instale o QSerialPort, siga as instruções de instalação no site.
 
 Após fazer todas essas configurações iniciais, primeiro faça o clone do repositório:
 ```
